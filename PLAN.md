@@ -80,10 +80,10 @@ Sizes are file counts of the legacy code.
 
 ### 4. web/greenscreen (54 files, JS dashboard with PHP proxies for stocks, public transport, traffic)
 
-- [ ] Inspect
-- [ ] Analyze (`docs/greenscreen.md`)
-- [ ] Clean up and commit legacy
-- [ ] Decide stack
+- [x] Inspect
+- [x] Analyze (`docs/greenscreen.md`)
+- [x] Clean up and commit legacy
+- [x] Decide stack
 - [ ] Modernize
 - [ ] Test
 - [ ] Document
