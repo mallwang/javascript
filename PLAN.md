@@ -73,10 +73,10 @@ Sizes are file counts of the legacy code.
 - [x] Analyze (`docs/verwaltungstool.md`)
 - [x] Clean up and commit legacy
 - [x] Decide stack
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ### 4. web/greenscreen (54 files, JS dashboard with PHP proxies for stocks, public transport, traffic)
 

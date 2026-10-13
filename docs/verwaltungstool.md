@@ -79,3 +79,11 @@ Deleted unreferenced duplicates: `js/jquery-1.10.0.js`, `css/bootstrap.min.css`,
 ## Stack decision
 
 Next.js (App Router, full-stack TypeScript) + SQLite (user decision). Server actions or route handlers replace the Ajax endpoints; SQLite via `better-sqlite3` with prepared statements; passwords hashed with scrypt (`node:crypto`); mail via nodemailer using `SMTP_*` from `.env`. Fixes all issues listed above by design.
+
+## Modernized
+
+`apps/web/verwaltungstool/modernized/`: Next.js 16 (App Router, server actions, no client JS), `better-sqlite3`, nodemailer. `src/lib/users.ts` holds all logic (testable with an in-memory DB), `src/app/` the pages and `actions.ts`. Images copied to `public/img`. `npm run lint`, `test` (6 tests) and `build` pass; register -> activate -> login -> protected page and a wrong login were also run against `next start` with curl.
+
+Behavior changes: nicknames are limited to letters, digits and `_ . -` (so they cannot be confused with e-mail addresses); UI texts are English; the activation key is cleared on use; password change invalidates all sessions; the app UI uses plain CSS instead of Bootstrap 2.
+
+Deviations from the conventions: Next.js/React instead of Vite; `build` runs `tsc --noEmit && next build`; `next-env.d.ts` is committed; no jsdom/vite dependencies.

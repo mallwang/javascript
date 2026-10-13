@@ -25,7 +25,7 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | web/bootstrap       | yes (similar to iusemybrain)            | open       |
 | web/iusemybrain     | yes (similar to bootstrap)              | open       |
 | web/manageyourteam  | `legacy`, `legacy-neu` (was myt_neu)    | open       |
-| web/verwaltungstool | yes                                     | open       |
+| web/verwaltungstool | yes                                     | done       |
 | web/greenscreen     | yes                                     | open       |
 | sites/hallindi      | yes                                     | open       |
 | sites/kia           | yes                                     | open       |
