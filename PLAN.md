@@ -47,9 +47,9 @@ Sizes are file counts of the legacy code.
 
 ### 1. misc/richkidzofupo (3 files)
 
-- [ ] Inspect
-- [ ] Analyze (`docs/richkidzofupo.md`)
-- [ ] Clean up and commit legacy
+- [x] Inspect
+- [x] Analyze (`docs/richkidzofupo.md`)
+- [x] Clean up and commit legacy
 - [ ] Decide stack
 - [ ] Modernize
 - [ ] Test
