@@ -30,4 +30,4 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | sites/hallindi      | yes                                     | open       |
 | sites/kia           | yes                                     | open       |
 | misc/email-check    | yes                                     | open       |
-| misc/richkidzofupo  | yes                                     | open       |
+| misc/richkidzofupo  | yes                                     | done       |

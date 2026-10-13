@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Internet Seite</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <p class="headline">Hier entsteht die Internet-Seite</p>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick" />
+        <input type="hidden" name="hosted_button_id" value="Z4QUV7A2YAMFA" />
+        <input
+          type="image"
+          src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif"
+          name="submit"
+          alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal."
+        />
+      </form>
+      <p class="host">- <span id="host"></span> -</p>
+      <img
+        src="https://wint.global/pics/co2.png"
+        width="146"
+        height="196"
+        alt="100% CO2-neutrales Hosting - powered by WIRCON Interservices GmbH"
+      />
+      <p><a href="http://www.wint.global">© WIRCON Interservices GmbH</a></p>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

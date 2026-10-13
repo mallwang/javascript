@@ -49,3 +49,13 @@ None.
 
 - Google Analytics snippet (UA is discontinued).
 - `.project` (IDE file, removed in legacy cleanup with user approval).
+
+## Stack decision
+
+Static HTML + Vite + TypeScript, no backend (user decision). The host name is set client-side via `textContent`, which fixes the XSS. Google Analytics is dropped (UA discontinued, no consent handling). Images stay hotlinked as in the legacy page. Page is UTF-8 with clean HTML.
+
+## Modernized
+
+`apps/misc/richkidzofupo/modernized/`: `index.html`, `src/` (`host.ts`, `main.ts`, `style.css`), `tests/host.test.ts` (title text, XSS escaping). `npm run lint`, `test` and `build` pass.
+
+Deviation: TypeScript is pinned to 6.0.3 instead of 7.x because typescript-eslint 8.71.2 only supports `<6.1.0`.

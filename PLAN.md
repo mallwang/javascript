@@ -50,11 +50,11 @@ Sizes are file counts of the legacy code.
 - [x] Inspect
 - [x] Analyze (`docs/richkidzofupo.md`)
 - [x] Clean up and commit legacy
-- [ ] Decide stack
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Decide stack
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ### 2. misc/email-check (5 files)
 
@@ -160,6 +160,6 @@ Sizes are file counts of the legacy code.
 
 ## Open decisions
 
-- [ ] Baseline for "Shared conventions" (Node version in `.nvmrc`, dependency versions, ESLint/Prettier/TypeScript/Vitest config) defined by the first modernized app and written to `docs/conventions.md`
+- [x] Baseline for "Shared conventions" (Node version in `.nvmrc`, dependency versions, ESLint/Prettier/TypeScript/Vitest config) defined by the first modernized app and written to `docs/conventions.md`
 - [ ] Monorepo with workspaces under `apps/`: decide after the first three apps (richkidzofupo, email-check, verwaltungstool) are modernized
 - [ ] Shared components between apps (e.g. auth, mailer, hallindi/kia template)

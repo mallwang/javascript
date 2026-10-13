@@ -1,0 +1,14 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 4rem 1rem;
+}
+.headline {
+  font-size: 1.25rem;
+}
+.host {
+  font-size: 0.8rem;
+}
+a {
+  color: #000;
+}
