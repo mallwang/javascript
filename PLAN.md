@@ -61,11 +61,11 @@ Sizes are file counts of the legacy code.
 - [x] Inspect
 - [x] Analyze (`docs/email-check.md`)
 - [x] Clean up and commit legacy
-- [ ] Decide stack
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Decide stack
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ### 3. web/verwaltungstool (36 files)
 

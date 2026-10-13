@@ -44,6 +44,15 @@ None.
 - `test.html` (`window.status` is ignored by browsers; unrelated) and `zwischenusersuche.php` (duplicate) were removed in the legacy cleanup with user approval.
 - `user_select.php` (unrelated to the regex exercise, cannot run) stays in legacy and is not ported.
 
-## Inspected files removed in cleanup
+## Stack decision
 
-`zwischenusersuche.php` (duplicate of `user_select.php`) and `test.html` (clock experiment), see git history of the original import for content: not preserved, both trivial.
+Static HTML + Vite + TypeScript, no backend (user decision). The check is a pure function, so no server round trip is needed.
+
+## Modernized
+
+`apps/misc/email-check/modernized/`: `index.html`, `src/` (`email.ts`, `main.ts`, `style.css`), `tests/email.test.ts` (12 cases). `npm run lint`, `test` and `build` pass.
+
+- The regex is now anchored and accepts `._%+-` in the local part, multi-label domains and a TLD of 2+ letters. It is deliberately not full RFC 5322. Input is capped at 254 characters.
+- Result is shown via `textContent`, no page reload.
+- `user_select.php` (foreign community-app code) is not ported.
+- No deviations from `docs/conventions.md`.

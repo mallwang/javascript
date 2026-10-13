@@ -29,5 +29,5 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | web/greenscreen     | yes                                     | open       |
 | sites/hallindi      | yes                                     | open       |
 | sites/kia           | yes                                     | open       |
-| misc/email-check    | yes                                     | open       |
+| misc/email-check    | yes                                     | done       |
 | misc/richkidzofupo  | yes                                     | done       |
