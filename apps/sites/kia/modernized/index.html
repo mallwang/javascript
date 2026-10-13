@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KIA Rio 1.4 EX</title>
+    <link rel="icon" href="/images/logo2.png" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <a href="#home"><img src="/images/logo.png" alt="" height="40" /> KIA Rio 1.4 EX</a>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#daten">Daten</a>
+        <a href="#bilder">Bilder</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <h2 id="caption">KIA Rio 1.4 EX</h2>
+        <p>87000 Km · 8-fach bereift · <span class="price">3.850€ VB</span></p>
+      </section>
+
+      <section id="daten">
+        <img src="/images/1.jpg" alt="KIA Rio 1.4 EX" />
+        <div class="data">
+          <div>
+            <h3>Allgemeine Daten</h3>
+            <ul>
+              <li>Erstzulassung: 03/2009</li>
+              <li>Kilometerstand: 87.266 Km</li>
+              <li>Kraftstoff: Benzin (E10-geeignet)</li>
+              <li>Leistung: 71 kW (97 PS)</li>
+              <li>Schaltgetriebe</li>
+              <li>Unfallfrei</li>
+              <li>Deutsche Ausführung, kein EU-Import</li>
+            </ul>
+            <h3>Technische Daten</h3>
+            <ul>
+              <li>Hubraum: 1399 cm³</li>
+              <li>Anzahl Sitzplätze: 5</li>
+              <li>Türen: 4/5</li>
+              <li>Kraftstoffverbr. komb.: ca. 6,2 l/100 km</li>
+              <li>Kraftstoffverbr. innerorts: ca. 7,9 l/100 km</li>
+              <li>Kraftstoffverbr. außerorts: ca. 5,2 l/100 km</li>
+              <li>CO2-Emissionen komb.: ca. 147 g/km</li>
+              <li>Schadstoffklasse: Euro4</li>
+              <li>Umweltplakette: 4 (Grün)</li>
+              <li>Anzahl der Fahrzeughalter: 2</li>
+              <li>HU mind. gültig: 06/2016</li>
+              <li>Farbe: Schwarz (Metallic)</li>
+              <li>Innenausstattung: Stoff</li>
+              <li>Farbe der Innenausstattung: Schwarz</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Ausstattung</h3>
+            <ul>
+              <li>
+                Innen: CD-Spieler, Mittelarmlehne vorne, Kopfstützen hinten 3x, geteilte
+                Rücksitzbank, Elektrische Fensterheber vorne und hinten, Klimaanlage,
+                MP3-Schnittstelle, Multifunktionslenkrad, Servolenkung, Tuner/Radio,
+                Zentralverriegelung
+              </li>
+              <li>Außen: Leichtmetallfelgen</li>
+              <li>Extras: Nichtraucher-Fahrzeug, Scheckheftgepflegt</li>
+              <li>
+                Sicherheit &amp; Umwelt: ABS, Airbags (Front-, Seiten- und weitere Airbags), ESP,
+                elektrische Wegfahrsperre, Traktionskontrolle
+              </li>
+            </ul>
+            <h3>Fahrzeugbeschreibung</h3>
+            <p>
+              Bei dem ersten Vorbesitzer handelte es sich um die Autovermietung Hertz. Der PKW wurde
+              als Jahreswagen mit 35000km erworben.
+            </p>
+            <p>Zusätzliche Ausstattung:</p>
+            <ul>
+              <li>4 Sommerreifen mit Leichtmetallfelgen (Profiltiefe: 2x5mm, 2x7mm)</li>
+              <li>4 Winterreifen mit Stahlfelgen und Radkappen (Profiltiefe: 2x5mm, 2x7mm)</li>
+            </ul>
+            <p>
+              Der PKW ist bis Mitte Januar noch auf mich zugelassen, eine Probefahrt ist bis dahin
+              jederzeit möglich!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="bilder">
+        <h2>Bilder des KIA Rio 1.4 EX</h2>
+        <div class="filters">
+          <button class="selected" data-filter="all">Alle Bilder</button>
+          <button data-filter="aussen">Außen</button>
+          <button data-filter="innen">Innen</button>
+        </div>
+        <div id="gallery" class="grid"></div>
+        <dialog id="lightbox">
+          <img alt="" />
+          <div class="lightbox-bar">
+            <button id="prev" aria-label="Zurück">&larr;</button>
+            <p></p>
+            <button id="next" aria-label="Weiter">&rarr;</button>
+            <button id="close">Schließen</button>
+          </div>
+        </dialog>
+      </section>
+
+      <section class="hero">
+        <h3>Sie haben Interesse?</h3>
+        <p>
+          +49 9624 2929 / +49 151 4144 9291<br />
+          <a href="mailto:allwang.markus@googlemail.com">allwang.markus@googlemail.com</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>Copyright &copy; 2014 Markus Allwang (i-use-my-brain.com). Alle Rechte vorbehalten.</p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

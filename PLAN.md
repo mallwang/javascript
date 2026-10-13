@@ -117,10 +117,10 @@ Sizes are file counts of the legacy code.
 - [x] Analyze (`docs/kia.md`)
 - [x] Clean up and commit legacy
 - [x] Decide stack
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ### 8. web/manageyourteam (`legacy` 132 files, `legacy-neu` 134 files, formerly `myt_neu`)
 

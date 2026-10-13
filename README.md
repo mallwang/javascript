@@ -28,6 +28,6 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | web/verwaltungstool | yes                                  | done       |
 | web/greenscreen     | yes                                  | done       |
 | sites/hallindi      | yes                                  | done       |
-| sites/kia           | yes                                  | open       |
+| sites/kia           | yes                                  | done       |
 | misc/email-check    | yes                                  | done       |
 | misc/richkidzofupo  | yes                                  | done       |
