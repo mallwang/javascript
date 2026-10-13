@@ -1,0 +1,46 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #e9dfc7;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+nav form {
+  display: inline;
+  margin-left: auto;
+}
+.layout {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+aside {
+  min-width: 11rem;
+  font-size: 0.9rem;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+label {
+  display: block;
+  margin-top: 0.75rem;
+}
+input {
+  display: block;
+  padding: 0.4rem;
+}
+button {
+  margin-top: 0.5rem;
+  padding: 0.4rem 1rem;
+}
+.error {
+  color: #a00;
+}

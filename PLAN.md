@@ -94,11 +94,11 @@ Sizes are file counts of the legacy code.
 - [x] Inspect
 - [x] Analyze (`docs/hoehlenmensch.md`)
 - [x] Clean up and commit legacy
-- [ ] Decide stack
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Decide stack
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ### 6. sites/hallindi (164 files, static; similar to kia)
 

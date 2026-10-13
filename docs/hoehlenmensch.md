@@ -87,3 +87,21 @@ None besides PHP `mail()` (welcome mail, e-mail change, password mails, sender h
 ## Cleanup
 
 Deleted from `legacy/` (59 -> 57 files): `Fragen.html`, `aufklappen.js` (placeholder FAQ). Kept by user decision: map prototypes, `Hauptseite.html`, the design document and all images. Personal data replaced by placeholders: sender `MAIL_FROM_NAME <MAIL_FROM_ADDRESS>` in `kontrolle_reg.php`, `email_neu.php`, `passwort_neu.php`, `pw_gesendet.php`; imprint `IMPRESSUM_NAME`, `IMPRESSUM_STREET`, `IMPRESSUM_CITY` in `index.php`, `pw_vergessen.php`. `connect.php` already used `DB_*` placeholders.
+
+## Stack decision
+
+Next.js (App Router, server actions) + TypeScript + SQLite via `better-sqlite3`, same baseline as verwaltungstool (user decision). No deviations from `docs/conventions.md`.
+
+## Modernized
+
+`apps/games/hoehlenmensch/modernized/`: `src/lib/game.ts` (pure rules: activities, consumption, yield, skill gain), `src/lib/player.ts` (register, login, sessions, start and settle jobs in transactions), `src/lib/db.ts` (schema, invented seed data for the food tables), `src/lib/scenes.ts` (image-map hotspots), `src/app/` (landing with login and register, scene, work, status, crafting, inventory), `tests/game.test.ts` (7 tests).
+
+Behavior changes and fixes:
+
+- Prepared statements, scrypt-hashed passwords, hashed DB-backed session tokens (7 days, really expire), React-escaped output, no password mailed or echoed.
+- Resources, items and skills are `(kind, name, qty)` rows in one `stock` table, which removes the legacy column-name mismatches.
+- A job is credited exactly once (clearing `activity` in the same transaction); the result is credited on the next page load after the end time, as in legacy.
+- Starting a job needs enough food and water (legacy let stock go negative). Animal food is used first; plant food covers the rest (legacy used animal food only).
+- Crafting is always 60 minutes, costs only food and water, and can only be started through the server action. `if ($dauer=30)` is gone (one yield table per duration).
+- Dropped: e-mail address, e-mail change, forgot-password mail, profile page (no mail service; login by nickname only), map prototypes, the unused Hauptseite hotspots without target (chest, character, tribe).
+- Seed data for small animals, plants, fish and mushrooms is invented (8/8/8/4 rows), because the legacy tables are not in the repo. English names replace the German ones.

@@ -21,7 +21,7 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | App                 | Legacy                                  | Modernized |
 | ------------------- | --------------------------------------- | ---------- |
 | games/bierspiel     | v1–v6                                   | open       |
-| games/hoehlenmensch | yes                                     | open       |
+| games/hoehlenmensch | yes                                     | done       |
 | web/bootstrap       | yes (similar to iusemybrain)            | open       |
 | web/iusemybrain     | yes (similar to bootstrap)              | open       |
 | web/manageyourteam  | `legacy`, `legacy-neu` (was myt_neu)    | open       |
