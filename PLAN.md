@@ -91,9 +91,9 @@ Sizes are file counts of the legacy code.
 
 ### 5. games/hoehlenmensch (59 files)
 
-- [ ] Inspect
-- [ ] Analyze (`docs/hoehlenmensch.md`)
-- [ ] Clean up and commit legacy
+- [x] Inspect
+- [x] Analyze (`docs/hoehlenmensch.md`)
+- [x] Clean up and commit legacy
 - [ ] Decide stack
 - [ ] Modernize
 - [ ] Test
