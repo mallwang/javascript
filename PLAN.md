@@ -84,10 +84,10 @@ Sizes are file counts of the legacy code.
 - [x] Analyze (`docs/greenscreen.md`)
 - [x] Clean up and commit legacy
 - [x] Decide stack
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ### 5. games/hoehlenmensch (59 files)
 

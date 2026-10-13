@@ -77,3 +77,7 @@ Deleted from `legacy/` (54 -> 21 files): `nbproject/`, `.project`, `humans.txt`,
 ## Stack decision
 
 Next.js (full-stack TypeScript), same baseline as verwaltungstool (user decision). Server components/route handlers replace the PHP proxies, with timeouts and revalidation instead of `setInterval` polling. Dead data sources need replacements, to be chosen during modernization.
+
+## Modernized
+
+`apps/web/greenscreen/modernized/`: `src/lib/parse.ts` (pure parsers, clock), `src/lib/sources.ts` (fetchers with timeout, cache, fail-soft), `src/app/` (server-rendered page, `Live.tsx` with refresh, clock and rotator), `tests/parse.test.ts` (4 tests). Replacement sources are listed in its README. Deviations: no database, no `.env` values (all sources keyless). Dropped: Google Maps (needs key), chart image, `video.html`.
