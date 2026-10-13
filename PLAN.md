@@ -105,11 +105,11 @@ Sizes are file counts of the legacy code.
 - [x] Inspect
 - [x] Analyze (`docs/hallindi.md`)
 - [x] Clean up and commit legacy
-- [ ] Decide stack (consider sharing it with kia)
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Decide stack
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ### 7. sites/kia (159 files, static; similar to hallindi)
 

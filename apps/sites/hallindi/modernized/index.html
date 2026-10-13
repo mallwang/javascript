@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hubert Allwang Internetdienstleistung</title>
+    <link rel="icon" href="/images/logo.jpg" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <a href="#home"><img src="/images/logo.jpg" alt="Logo" height="40" /></a>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">Über uns</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#projekte">Projekte</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <h2 id="caption">DESIGNEN.</h2>
+      </section>
+      <section class="counters">
+        <div>
+          <strong data-count="2">0</strong>
+          <h3>Internetauftritte</h3>
+          <p>Wir können stolz die ersten Ergebnisse unserer Arbeit präsentieren.</p>
+        </div>
+        <div>
+          <strong data-count="3">0</strong>
+          <h3>Android-Apps</h3>
+          <p>Auch in die Android Welt sind wir mittlerweile vorgedrungen.</p>
+        </div>
+        <div>
+          <strong data-count="20" data-suffix="... viele">0</strong>
+          <h3>begeisterte Benutzer</h3>
+          <p>
+            Alle leidenschaftlichen Benutzer unserer Leistungen können wir nicht aufzählen, daher
+            kürzen wir es an dieser Stelle ab.
+          </p>
+        </div>
+      </section>
+      <section class="intro">
+        <h2>Sie planen Ihren Internetauftritt? Dann sind Sie bei uns goldrichtig!</h2>
+        <p>
+          Angefangen mit modernem Webdesign über die Erstellung eines Internetshops bis hin zur
+          Entwicklung von Android-Apps bieten wir alles, was Ihr und unser Herz höher schlagen
+          lässt.
+        </p>
+        <p>
+          <strong
+            >Wir möchten Sie nicht nur zufriedenstellen, sondern begeistern. Entdecken Sie daher
+            unsere Referenzen!</strong
+          >
+        </p>
+        <img src="/images/hand.png" alt="" />
+      </section>
+
+      <section id="about">
+        <div class="features">
+          <div>
+            <h3>Mit Liebe und Hingabe</h3>
+            <p>
+              Nur ein mit Leidenschaft durchgeführtes Projekt kann ein erfolgreiches Projekt werden.
+              Wir sind deshalb erst zufrieden, wenn Sie es auch sind.
+            </p>
+          </div>
+          <div>
+            <h3>Flexibel und professionell</h3>
+            <p>
+              Durch die Verwendung von Designpatterns sowie Clean-Code-Conventions bleibt der
+              Programmcode jederzeit übersichtlich und wartbar.
+            </p>
+          </div>
+          <div>
+            <h3>Ansprechend und vielseitig</h3>
+            <p>
+              Webseiten und Apps werden dynamisch an das jeweilige Endgerät angepasst, sodass diese
+              sowohl auf PC als auch auf allen mobilen Geräten optimal dargestellt werden.
+            </p>
+          </div>
+        </div>
+        <h2>Das Team</h2>
+        <div class="team">
+          <figure>
+            <img src="/images/picTeam/picT1.png" alt="Hubert Allwang" />
+            <h3>Hubert Allwang</h3>
+            <p>CEO</p>
+          </figure>
+          <figure>
+            <img src="/images/picTeam/picT2.png" alt="Markus Allwang" />
+            <h3>Markus Allwang</h3>
+            <p>CTO</p>
+            <p>
+              Wenn theoretisches Know-How auf praktische Erfahrung stößt, dann ist das Markus
+              Allwang! Durch ein abgeschlossenes Wirtschaftsinformatik-Studium sowie mehrerer Jahre
+              privater und beruflicher Softwareentwicklung ist er der Mann fürs Feine.
+            </p>
+          </figure>
+        </div>
+      </section>
+
+      <section id="portfolio">
+        <h2>Unser Portfolio</h2>
+        <p>Von Android-Apps bis Webentwicklung!</p>
+        <div class="features">
+          <div>
+            <h3>Webdesign</h3>
+            <p>
+              Mithilfe von HTML5, CSS3, JavaScript sowie Ajax und PHP entsteht etwas Wundervolles!
+              Sie werden es lieben!
+            </p>
+          </div>
+          <div>
+            <h3>E-Commerce</h3>
+            <p>
+              Die Vermarktung und der Verkauf von Produkten über das Internet sind in einer
+              globalen, sich schnell wandelnden Konsumgesellschaft essentiell. Seien Sie auf der
+              Höhe der Zeit und hüten Sie sich vor Amazon, Zalando und co.!
+            </p>
+          </div>
+          <div>
+            <h3>Android-Programmierung</h3>
+          </div>
+          <div>
+            <h3>Services</h3>
+          </div>
+        </div>
+      </section>
+
+      <section id="projekte">
+        <h2>Unsere Projekte und Referenzen</h2>
+        <p>Wir haben etwas geschaffen, was Ihnen gefallen wird!</p>
+        <div class="filters">
+          <button class="selected" data-filter="all">Alle Projekte</button>
+          <button data-filter="websites">Websites</button>
+          <button data-filter="apps">Apps</button>
+        </div>
+        <div id="projects" class="grid"></div>
+        <dialog id="lightbox"><img alt="" /></dialog>
+      </section>
+
+      <section id="kontakt">
+        <h2>Sie benötigen Hilfe oder möchten sich einfach nur erkundigen?</h2>
+        <p>Wir helfen Ihnen gerne!</p>
+        <div class="contact">
+          <form id="contact">
+            <input name="name" placeholder="Name *" required />
+            <input name="email" type="email" placeholder="E-Mail Adresse *" required />
+            <input name="subject" placeholder="Betreff" />
+            <textarea name="message" placeholder="Ihre Nachricht *" required rows="6"></textarea>
+            <div>
+              <button type="reset">Form leeren</button>
+              <button type="submit">Nachricht absenden</button>
+            </div>
+          </form>
+          <address>
+            Hütberg 3, 92266 Ensdorf<br />
+            +49 9624 2929 / +49 151 4144 9291<br />
+            <a href="mailto:info@hallindi.de">info@hallindi.de</a>
+          </address>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Copyright &copy; Hubert Allwang Internetdienstleistung</p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

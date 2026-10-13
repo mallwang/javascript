@@ -4,14 +4,14 @@ Legacy path: `apps/sites/hallindi/legacy/` (164 files, 9 MB; 142 after cleanup).
 
 ## Inspect
 
-| File / dir | Purpose |
-|------------|---------|
-| `index.html` | The whole site: menu, slider, about/team, portfolio charts, project gallery, contact form, newsletter, footer. About 38 KB with inline scripts. |
-| `css/` | Used: `bootstrap.css`, `font-awesome.css`, `camera.css`, `slicknav.css`, `prettyPhoto.css`, `style.css` (custom). Unused: `*.min.css` copies, `bootstrap-theme*`, `.map` files, `main.min.css`, `normalize.css`, `easy-pie.css`, `style.css.bak` (whitespace-only differences from `style.css`). |
-| `js/` | Used: `jquery-1.8.3.min.js`, `jquery.mobile.customized.min.js`, `jquery.easing.1.3.js`, `camera.min.js`, `myscript.js` (easyPieChart + onScreen plugins inline), `sorting.js` (Isotope filter + `portfolio_addon`), `jquery.isotope.js`, `jquery.prettyPhoto.js`, `bootstrap.min.js`, `jquery.slicknav.js`. Unused: `jquery.js`, `jquery.min.js`, `jquery-1.11.1.min.js`, `bootstrap.js`, `easypiechart*.js`, `jquery.easypiechart.min.js`, `jquery.nav.js` (commented out), `js1.js`, `myscript1.js`, `current.js`, `slider.js`. |
-| `fonts/` | Font Awesome and Glyphicons (eot, svg, ttf, woff, otf). |
-| `images/` | Slider images, team/about pictures, prettyPhoto gallery images and thumbs, icons, `hand.png`, logo. `picNews/` belongs to the commented-out news section. |
-| `Logos/` | `Logo1-11.jpg`, `erde.png`, `erde2.png`; not referenced by `index.html`. |
+| File / dir   | Purpose                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.html` | The whole site: menu, slider, about/team, portfolio charts, project gallery, contact form, newsletter, footer. About 38 KB with inline scripts.                                                                                                                                                                                                                                                                                                                                                                                   |
+| `css/`       | Used: `bootstrap.css`, `font-awesome.css`, `camera.css`, `slicknav.css`, `prettyPhoto.css`, `style.css` (custom). Unused: `*.min.css` copies, `bootstrap-theme*`, `.map` files, `main.min.css`, `normalize.css`, `easy-pie.css`, `style.css.bak` (whitespace-only differences from `style.css`).                                                                                                                                                                                                                                  |
+| `js/`        | Used: `jquery-1.8.3.min.js`, `jquery.mobile.customized.min.js`, `jquery.easing.1.3.js`, `camera.min.js`, `myscript.js` (easyPieChart + onScreen plugins inline), `sorting.js` (Isotope filter + `portfolio_addon`), `jquery.isotope.js`, `jquery.prettyPhoto.js`, `bootstrap.min.js`, `jquery.slicknav.js`. Unused: `jquery.js`, `jquery.min.js`, `jquery-1.11.1.min.js`, `bootstrap.js`, `easypiechart*.js`, `jquery.easypiechart.min.js`, `jquery.nav.js` (commented out), `js1.js`, `myscript1.js`, `current.js`, `slider.js`. |
+| `fonts/`     | Font Awesome and Glyphicons (eot, svg, ttf, woff, otf).                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `images/`    | Slider images, team/about pictures, prettyPhoto gallery images and thumbs, icons, `hand.png`, logo. `picNews/` belongs to the commented-out news section.                                                                                                                                                                                                                                                                                                                                                                         |
+| `Logos/`     | `Logo1-11.jpg`, `erde.png`, `erde2.png`; not referenced by `index.html`.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 ## Purpose and features
 
@@ -60,3 +60,19 @@ Pure client side, no backend, no database, no build step. Scroll navigation anim
 ## Cleanup
 
 Deleted from `legacy/` (164 -> 142 files) by user decision: all CSS and JS files not loaded by `index.html` (listed under Inspect), including `style.css.bak`. All images, fonts and `Logos/` kept. Personal data (names, address, phones, `info@hallindi.de`) left unchanged by user decision, as it is the public business card of the site.
+
+## Stack decision
+
+Vite + TypeScript, vanilla: no framework, no backend, no jQuery (user decision). Same baseline as richkidzofupo. Deviation: none; `.env.example` is empty because no configuration is needed.
+
+## Modernized
+
+`apps/sites/hallindi/modernized/`: `index.html` (German content), `src/main.ts` (caption rotation, count-up counters, project filter, `<dialog>` lightbox, mailto form), `src/lib.ts` (project data, pure filter and counter functions), `src/style.css` (plain CSS grid), `tests/lib.test.ts` (3 tests), `public/images/` (only the used assets).
+
+Behavior changes:
+
+- jQuery, Bootstrap, Camera, Isotope, prettyPhoto, easyPieChart, slicknav and Font Awesome are replaced by native code and CSS; system fonts instead of Google Fonts over http.
+- The contact form opens the mail client (`mailto:info@hallindi.de`); the legacy form had no working backend.
+- Dropped: newsletter box (did nothing), dead social links, lorem ipsum testimonials and CEO bio, the template footer text, the empty Android and Services portfolio texts, the pie charts (all 100%).
+- App store links use https; the third counter shows "... viele" after counting up.
+- Unused legacy images stay in `legacy/`; only used assets were copied.
