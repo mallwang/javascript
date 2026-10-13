@@ -9,7 +9,7 @@ Node.js >= 22 (see `.nvmrc` at the repo root).
 ## Run
 
 ```sh
-npm install
+npm install          # run once at the repo root
 npm run dev      # dev server
 npm run build    # type-check and build to dist/
 npm test         # Vitest

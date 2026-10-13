@@ -10,7 +10,7 @@ Node.js >= 22 (see `.nvmrc` at the repo root).
 
 ```sh
 cp .env.example .env   # adjust values
-npm install
+npm install          # run once at the repo root
 npm run dev            # dev server on http://localhost:3000
 npm run build          # type-check and production build
 npm start              # run the production build

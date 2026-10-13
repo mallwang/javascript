@@ -17,15 +17,15 @@ Master plan for reviewing and modernizing all apps. Every agentic session works 
 - No credentials in the repo; secrets are placeholders (`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `SMTP_USER`, `SMTP_PASSWORD`). Modernized code reads config from `.env` (commit only `.env.example`).
 - No GitHub Actions for now.
 - Target language is JavaScript, preferably TypeScript with a framework. Stack is decided per app in step 4.
-- Monorepo (workspaces under `apps/`) is undecided; see "Open decisions". Until then every app is standalone (see "Shared conventions").
+- Monorepo: npm workspaces (`apps/*/*/modernized`) plus Nx for cached task running; see "Shared conventions".
 
 ## Shared conventions
 
-All modernized apps use the same runtime, dependency versions and conventions, so a later monorepo switch only adds a root `package.json` with workspaces.
+All modernized apps use the same runtime, dependency versions and conventions and live in one npm workspaces monorepo with Nx (decided after app 3).
 
-- **Standalone apps:** each `modernized/` has its own `package.json` and lockfile, installs with `npm install` inside its folder and depends on no root files.
+- **Workspaces:** one root `package.json`, one `package-lock.json`, `npm install` at the repo root. Each `modernized/` has its own `package.json` with only app-specific dependencies and extends `tsconfig.base.json`. ESLint and Prettier configs live in the root. Nx (`nx.json`, no generators or plugins) runs the existing scripts with caching: `npm run lint|test|build` at the root or `npx nx <task> <app>`.
 - **One Node.js version:** defined once in `.nvmrc` at the repo root (current LTS, chosen by the first modernized app). Every `package.json` sets the same `engines.node`.
-- **Same dependency versions:** shared dependencies (TypeScript, ESLint, Prettier, Vitest, and the chosen framework if apps share one) use identical, exact versions in all apps. The baseline is set by the first app and recorded in `docs/conventions.md`. Version bumps are applied to all apps together.
+- **Same dependency versions:** shared tooling (TypeScript, ESLint, Prettier, Vitest, Nx) is declared once in the root `package.json`; other shared dependencies (and the chosen framework if apps share one) use identical, exact versions in all apps. The baseline is set by the first app and recorded in `docs/conventions.md`. Version bumps are applied to all apps together.
 - **Same tooling and scripts:** TypeScript `strict`, ESLint, Prettier, Vitest; every app provides the scripts `dev`, `build`, `test`, `lint`.
 - **Same layout:** `modernized/` contains `README.md`, `.env.example`, `src/`, `tests/`, and the app's assets.
 - **Deviations** (different framework, extra dependency) are allowed per app but must be stated with a reason in `docs/<app>.md`.
@@ -161,5 +161,5 @@ Sizes are file counts of the legacy code.
 ## Open decisions
 
 - [x] Baseline for "Shared conventions" (Node version in `.nvmrc`, dependency versions, ESLint/Prettier/TypeScript/Vitest config) defined by the first modernized app and written to `docs/conventions.md`
-- [ ] Monorepo with workspaces under `apps/`: decide after the first three apps (richkidzofupo, email-check, verwaltungstool) are modernized
+- [x] Monorepo: npm workspaces + Nx (decided and set up after the first three apps)
 - [ ] Shared components between apps (e.g. auth, mailer, hallindi/kia template)
