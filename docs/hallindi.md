@@ -1,6 +1,6 @@
 # hallindi
 
-Legacy path: `apps/sites/hallindi/legacy/` (164 files, 9 MB; 143 after cleanup). Single static page `index.html` (UTF-8 with BOM, CRLF), title "Hubert Allwang Internetdienstleistung". Built on the "Timber" HTML template (the footer still says "Copyright 2014 Timber HTML Template"). Very similar to `sites/kia` (same template, same JS/CSS libraries, differing content).
+Legacy path: `apps/sites/hallindi/legacy/` (164 files, 9 MB; 142 after cleanup). Single static page `index.html` (UTF-8 with BOM, CRLF), title "Hubert Allwang Internetdienstleistung". Built on the "Timber" HTML template (the footer still says "Copyright 2014 Timber HTML Template"). Very similar to `sites/kia` (same template, same JS/CSS libraries, differing content).
 
 ## Inspect
 
@@ -59,4 +59,4 @@ Pure client side, no backend, no database, no build step. Scroll navigation anim
 
 ## Cleanup
 
-Deleted from `legacy/` (164 -> 143 files) by user decision: all CSS and JS files not loaded by `index.html` (listed under Inspect), including `style.css.bak`. All images, fonts and `Logos/` kept. Personal data (names, address, phones, `info@hallindi.de`) left unchanged by user decision, as it is the public business card of the site.
+Deleted from `legacy/` (164 -> 142 files) by user decision: all CSS and JS files not loaded by `index.html` (listed under Inspect), including `style.css.bak`. All images, fonts and `Logos/` kept. Personal data (names, address, phones, `info@hallindi.de`) left unchanged by user decision, as it is the public business card of the site.
