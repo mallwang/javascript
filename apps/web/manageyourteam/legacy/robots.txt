@@ -1,0 +1,5 @@
+# http://www.manageyourteam.de/robots.txt
+
+User-agent: *
+Disallow: /functions
+Disallow: /inc

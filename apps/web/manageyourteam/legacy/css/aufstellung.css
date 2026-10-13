@@ -1,0 +1,242 @@
+.teamList {
+	position: absolute;
+	z-index: 4;
+	left: 20px;
+}
+
+.playerlist {
+	width: 245px;
+	z-index: 3;
+	margin-top: 90px;
+	margin-right: 0px;
+}
+
+.team {
+	position: relative;
+	width: 239px;
+	padding: 0px;
+	border: 0px solid #000;
+	background-repeat: repeat-y;
+}
+
+.playerlistReserve {
+	width: 245px;
+	z-index: 3;
+	height: 80px;
+	margin-top: 0px;
+	margin-right: 0px;
+	border: 0px solid #000;
+}
+
+.teamReserve {
+	position: relative;
+	width: 239px;
+	height: 75px;
+	padding: 0px;
+	border: 0px solid #000000;
+	background-repeat: repeat-y;
+}
+
+.trikot {
+	position: absolute;
+	cursor: pointer;
+	margin-left: 3px;
+	margin-top: 3px;
+	padding: 0px;
+	border: 0px solid #fff;
+	z-index: 4;
+}
+
+.background {
+	position: absolute;
+	z-index: 0;
+	width: 778px;
+	height: 30px;
+	top: 2px;
+	left: 170px;
+}
+
+.background>p {
+	font-style: italic;
+	font-size: 16px;
+	font-weight: bold;
+	color: #fff;
+	margin: 5px 0 0 0;
+	padding: 0;
+}
+
+.main {
+	position: absolute;
+	margin-left: 170px;
+	/*margin-top: 0px;*/
+	margin-top: -302px;
+	z-index: 3;
+	height: 50px;
+	border: 0px solid #FFFFFF;
+}
+
+.aufstellung {
+	background: url("../img/spielfeld.png") !important;
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+	/*margin-top: -327px;
+	margin-left: 135px;*/
+	height: 500px;
+	border: 0px solid #000000;
+	z-index: 3;
+}
+
+.droppedPlayer {
+	font-family: verdana;
+	font-size: 8px;
+	cursor: pointer;
+	width: 150px;
+	height: 50px;
+	margin-top: 0px;
+	z-index: 4;
+	position: absolute;
+	margin-left: 3px;
+	border: 0px solid #FFFFFF;
+	padding: 1px;
+}
+
+.droppedPlayer-blank {
+	font-family: verdana;
+	font-size: 8px;
+	cursor: pointer;
+	width: 155px;
+	height: 50px;
+	margin-top: 20px;
+	z-index: 4;
+	position: absolute;
+	margin-top: 0px;
+	margin-left: 10px;
+	border: 0px solid #FFFFFF;
+}
+
+.container_name_pos {
+	position: absolute;
+	margin-left: 2px;
+	margin-top: 36px;
+}
+
+.player {
+	position: absolute;
+	font-family: verdana;
+	/*width: 235px;*/
+	height: 15px;
+	cursor: pointer;
+	font-size: 11px;
+	margin-left: 3px;
+	z-index: 3;
+}
+
+.playerReserve {
+	position: absolute;
+	font-family: verdana;
+	width: 235px;
+	height: 15px;
+	cursor: pointer;
+	font-size: 9px;
+	z-index: 3;
+}
+
+.save {
+	position: absolute;
+	margin-top: 5px;
+	margin-left: 660px;
+	z-index: 2;
+}
+
+.divTeamstaerke {
+	font-size: 11px;
+	position: absolute;
+	z-index: 100;
+}
+
+.divTeamstaerke>p {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+
+/*===============================================================================================================================*/
+.droppable-active {
+	opacity: 0.5;
+	z-index: 6;
+}
+
+.droppable-hover-player-container {
+	position: absolute;
+	border: 1px solid #FFFFFF;
+	z-index: 7;
+	padding: 0px;
+}
+
+.droppable-hover-team-list {
+	border: 0px solid #28605D;
+	z-index: 7;
+}
+
+.droppable-hover-teamReserve-list {
+	border: 0px solid #28605D;
+	z-index: 7;
+}
+
+.posDiv11 {
+	font-family: verdana;
+	font-size: 11px;
+	position: absolute;
+	margin-top: 0px;
+	margin-left: 0px;
+	z-index: 8;
+	width: 235px;
+	height: 20px;
+	border: 0 solid #000000;
+}
+
+.posDiv12 {
+	font-family: verdana;
+	font-size: 11px;
+	position: absolute;
+	margin-top: 14px;
+	margin-left: 0px;
+	width: 235px;
+	height: 20px;
+	border: 0 solid #000000;
+}
+
+.posDiv13 {
+	font-family: verdana;
+	font-size: 11px;
+	position: absolute;
+	margin-top: 28px;
+	margin-left: 0px;
+	width: 235px;
+	height: 20px;
+	border: 0 solid #000000;
+}
+
+.posDiv14 {
+	font-family: verdana;
+	font-size: 11px;
+	position: absolute;
+	margin-top: 42px;
+	margin-left: 0px;
+	width: 235px;
+	height: 20px;
+	border: 0 solid #000000;
+}
+
+.posDiv15 {
+	font-family: verdana;
+	font-size: 11px;
+	position: absolute;
+	margin-top: 56px;
+	margin-left: 0px;
+	width: 235px;
+	height: 20px;
+	border: 0 solid #000000;
+}

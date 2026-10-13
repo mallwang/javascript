@@ -127,8 +127,8 @@ Sizes are file counts of the legacy code.
 - [x] Inspect
 - [x] Diff `legacy` against `legacy-neu`; user decision which to keep
 - [x] Analyze (`docs/manageyourteam.md`; large `inc/DB.php`)
-- [ ] Clean up and commit legacy (check the contact address `benutzerverwaltung@...` is intended to stay)
-- [ ] Decide stack
+- [x] Clean up and commit legacy (check the contact address `benutzerverwaltung@...` is intended to stay)
+- [x] Decide stack
 - [ ] Modernize
 - [ ] Test
 - [ ] Document
