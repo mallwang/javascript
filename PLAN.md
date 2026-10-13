@@ -124,9 +124,9 @@ Sizes are file counts of the legacy code.
 
 ### 8. web/manageyourteam (`legacy` 132 files, `legacy-neu` 134 files, formerly `myt_neu`)
 
-- [ ] Inspect
-- [ ] Diff `legacy` against `legacy-neu`; user decision which to keep
-- [ ] Analyze (`docs/manageyourteam.md`; large `inc/DB.php`)
+- [x] Inspect
+- [x] Diff `legacy` against `legacy-neu`; user decision which to keep
+- [x] Analyze (`docs/manageyourteam.md`; large `inc/DB.php`)
 - [ ] Clean up and commit legacy (check the contact address `benutzerverwaltung@...` is intended to stay)
 - [ ] Decide stack
 - [ ] Modernize
