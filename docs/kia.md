@@ -45,3 +45,11 @@ Google Fonts (Roboto, Open Sans) over `http://`. No analytics, no forms, no API 
 
 - Unused CSS and JS listed in the table (including four copies of jQuery, minified duplicates, a `.bak` file and Dreamweaver `_notes`).
 - Differs from hallindi only in content and images; shared template assets (bootstrap, camera, prettyPhoto, ...) are copies, not byte-identical.
+
+## Cleanup
+
+Deleted from `legacy/` (159 -> 136 files) by user decision: all CSS and JS files not loaded by `index.html` (10 CSS, 11 JS) and the Dreamweaver `_notes` directories. Fonts and images are untouched. Personal data (phone numbers, e-mail address, owner name) left unchanged by user decision.
+
+## Stack decision
+
+Vite + TypeScript, vanilla (user decision), same as hallindi. No deviations from `docs/conventions.md`.
