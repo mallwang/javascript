@@ -67,12 +67,12 @@ Sizes are file counts of the legacy code.
 - [x] Document
 - [x] Commit
 
-### 3. web/verwaltungstool (36 files)
+### 3. web/verwaltungstool (36 files, 32 after cleanup)
 
-- [ ] Inspect
-- [ ] Analyze (`docs/verwaltungstool.md`)
-- [ ] Clean up and commit legacy
-- [ ] Decide stack
+- [x] Inspect
+- [x] Analyze (`docs/verwaltungstool.md`)
+- [x] Clean up and commit legacy
+- [x] Decide stack
 - [ ] Modernize
 - [ ] Test
 - [ ] Document

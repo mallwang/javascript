@@ -1,0 +1,20 @@
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
+ErrorDocument 404 /Error
+order deny,allow
+
+RewriteEngine On
+
+RewriteRule ^Verwaltung$ /verwaltung.php [L]
+RewriteRule ^Werbung$ /werbung.php [L]
+RewriteRule ^Login$ /login.php [L]
+RewriteRule ^Registrieren$ /registrieren.php [L]
+
+RewriteRule ^Profil$ /profil.php [L]
+RewriteRule ^Logout$ /logout.php [L]
+
+RewriteRule ^Kontakt$ /kontakt.php [L]
+RewriteRule ^Impressum$ /impressum.php [L]
+
+RewriteRule ^Error$ /error404.php [L]
