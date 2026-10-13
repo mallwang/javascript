@@ -58,9 +58,9 @@ Sizes are file counts of the legacy code.
 
 ### 2. misc/email-check (5 files)
 
-- [ ] Inspect
-- [ ] Analyze (`docs/email-check.md`)
-- [ ] Clean up and commit legacy
+- [x] Inspect
+- [x] Analyze (`docs/email-check.md`)
+- [x] Clean up and commit legacy
 - [ ] Decide stack
 - [ ] Modernize
 - [ ] Test
