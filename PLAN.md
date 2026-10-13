@@ -129,10 +129,10 @@ Sizes are file counts of the legacy code.
 - [x] Analyze (`docs/manageyourteam.md`; large `inc/DB.php`)
 - [x] Clean up and commit legacy (check the contact address `benutzerverwaltung@...` is intended to stay)
 - [x] Decide stack
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ### 9. web/bootstrap and web/iusemybrain (161 and 167 files, nearly identical)
 

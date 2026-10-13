@@ -91,3 +91,16 @@ SMTP via PHPMailer (SSL, port 465) for confirmation, welcome, password and profi
 ## Stack decision
 
 Next.js (App Router, server actions) + TypeScript + SQLite via `better-sqlite3`, same baseline as verwaltungstool and hoehlenmensch (user decision). No deviations from `docs/conventions.md`.
+
+## Modernized
+
+`apps/web/manageyourteam/modernized/`: `src/lib/rules.ts` (pure rules: roles, formations, line-up and event validation), `src/lib/club.ts` (data and authorization layer), `src/lib/db.ts` (schema), `src/lib/auth.ts` and `src/lib/password.ts` (sessions, scrypt), `src/app/` (login and club registration, club, team line-up, calendar, event, profile), `tests/club.test.ts`.
+
+Behavior changes and fixes:
+
+- Prepared statements, scrypt-hashed passwords, hashed DB-backed sessions (7 days), React-escaped output.
+- Every mutation checks role and club scope (legacy had none for 22 endpoints). Admins manage the club, coaches only their assigned teams, players see only their own team and attendance.
+- Users, coaches and players are one `users` table (role admin/coach/player); a match is an `events` row with opponent and goals; start and end are `YYYY-MM-DDTHH:MM`.
+- Line-up: 7 formations (legacy layouts 8 and 9 duplicated 5-3-2 and 5-4-1); positions are chosen with dropdowns instead of drag and drop.
+- Dropped: all mail (activation, welcome, forgot password), so accounts are active immediately and the admin sets initial passwords; the 3-day grace period for profile deletion (deletion is immediate with password confirmation; deleting the admin deletes the club); live search; the unused `DB.php` class.
+- Changing the password ends all sessions of that user.

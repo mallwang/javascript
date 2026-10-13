@@ -24,7 +24,7 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | games/hoehlenmensch | yes                                  | done       |
 | web/bootstrap       | yes (similar to iusemybrain)         | open       |
 | web/iusemybrain     | yes (similar to bootstrap)           | open       |
-| web/manageyourteam  | `legacy`, `legacy-neu` (was myt_neu) | open       |
+| web/manageyourteam  | yes (`legacy-neu` was identical)     | done       |
 | web/verwaltungstool | yes                                  | done       |
 | web/greenscreen     | yes                                  | done       |
 | sites/hallindi      | yes                                  | done       |
