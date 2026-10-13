@@ -102,9 +102,9 @@ Sizes are file counts of the legacy code.
 
 ### 6. sites/hallindi (164 files, static; similar to kia)
 
-- [ ] Inspect
-- [ ] Analyze (`docs/hallindi.md`)
-- [ ] Clean up and commit legacy
+- [x] Inspect
+- [x] Analyze (`docs/hallindi.md`)
+- [x] Clean up and commit legacy
 - [ ] Decide stack (consider sharing it with kia)
 - [ ] Modernize
 - [ ] Test
