@@ -6,6 +6,7 @@ Analyze (reverse engineer) old PHP/JS applications under `apps/**/legacy/` and m
 
 ## Rules
 
+- Follow `PLAN.md`: one app per session, tick off finished tasks in the same commit.
 - Language: all Markdown files and all other files (code, comments, commit messages, docs) must be written in English. German is used only in the chat with the user.
 - Do not modify `legacy/`, read only. Exception: secrets are replaced by placeholders such as `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `SMTP_USER`, `SMTP_PASSWORD`.
 - Never remove images or other assets; the apps need them.
