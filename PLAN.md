@@ -163,6 +163,17 @@ The game was originally one browser game called "Schankimperium" spread over sev
 - [x] Document
 - [x] Commit
 
+### 11. web/unser-blog (64 files, PHP blog with subscriptions; source `gitlab-export/unser-blog-main`)
+
+- [x] Inspect
+- [x] Analyze (`docs/unser-blog.md`)
+- [x] Clean up and commit legacy (secrets replaced, `gruppe1.sql` anonymized, Eclipse junk removed)
+- [x] Decide stack (Next.js + TypeScript + SQLite, no mail delivery)
+- [ ] Modernize
+- [ ] Test
+- [ ] Document
+- [ ] Commit
+
 ## Open decisions
 
 - [x] Baseline for "Shared conventions" (Node version in `.nvmrc`, dependency versions, ESLint/Prettier/TypeScript/Vitest config) defined by the first modernized app and written to `docs/conventions.md`
