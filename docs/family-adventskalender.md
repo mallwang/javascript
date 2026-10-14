@@ -4,16 +4,16 @@ Source: `gitlab-export/family-adventskalender-master/` (157 files, 60 MB, mostly
 
 ## Inspect
 
-| Area      | Files                                                                                                                                      |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| Entry     | `src/main.ts`, `src/index.html`, `src/app/app.module.ts`, `app-routing.module.ts`, `app.component.*`                                       |
-| Page      | `src/app/home/` (`home.page.ts/html/scss`, module): the calendar grid                                                                      |
-| Modals    | `src/app/image-modal/` (photo of a day), `src/app/qr-code-modal/` (share QR code)                                                           |
-| Guard     | `src/app/can-deactivate.guard.ts` (back button closes the open modal first)                                                                |
-| Config    | `.env` (`NODE_ENV`, `REQUIRED_MONTH`), `scripts/setup-angular-environment.js` (generates `src/environments/*.ts`), `ngsw-config.json`       |
-| PWA       | `src/manifest.webmanifest`, `src/dev.manifest.webmanifest`, Angular service worker                                                          |
-| Tooling   | `angular.json`, Karma/Jasmine unit tests (`*.spec.ts`, mostly generated stubs), Protractor e2e (`e2e/`), ESLint, Prettier, husky, commitlint |
-| Assets    | `src/assets/images/full/1..24.jpg` (43 MB), `preview/1..24.jpg` (16 MB), `bg.jpg`, `qr-code.jpg`, `dev.qr-code.jpg`, icons (prod + `dev/`), font `MountainsofChristmas.ttf`, `images/{background,no-background}/` icon sources |
+| Area    | Files                                                                                                                                                                                                                          |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Entry   | `src/main.ts`, `src/index.html`, `src/app/app.module.ts`, `app-routing.module.ts`, `app.component.*`                                                                                                                           |
+| Page    | `src/app/home/` (`home.page.ts/html/scss`, module): the calendar grid                                                                                                                                                          |
+| Modals  | `src/app/image-modal/` (photo of a day), `src/app/qr-code-modal/` (share QR code)                                                                                                                                              |
+| Guard   | `src/app/can-deactivate.guard.ts` (back button closes the open modal first)                                                                                                                                                    |
+| Config  | `.env` (`NODE_ENV`, `REQUIRED_MONTH`), `scripts/setup-angular-environment.js` (generates `src/environments/*.ts`), `ngsw-config.json`                                                                                          |
+| PWA     | `src/manifest.webmanifest`, `src/dev.manifest.webmanifest`, Angular service worker                                                                                                                                             |
+| Tooling | `angular.json`, Karma/Jasmine unit tests (`*.spec.ts`, mostly generated stubs), Protractor e2e (`e2e/`), ESLint, Prettier, husky, commitlint                                                                                   |
+| Assets  | `src/assets/images/full/1..24.jpg` (43 MB), `preview/1..24.jpg` (16 MB), `bg.jpg`, `qr-code.jpg`, `dev.qr-code.jpg`, icons (prod + `dev/`), font `MountainsofChristmas.ttf`, `images/{background,no-background}/` icon sources |
 
 Removed from the export during legacy cleanup (user approved): `.gitlab/` (issue/MR templates), `docker/` (CI images), `.gitlab-ci.yml`, `commitlint.config.js`, `package-lock.json`. `.env` is non-secret config but ignored by the root `.gitignore`, so it is not committed.
 
@@ -65,3 +65,21 @@ None at runtime (no analytics, no CDN). Only the share QR code image encodes a h
 - `@ionic-native/*` splash screen / status bar (cordova plugins, unused), `USE_HASH`.
 - `dev.manifest.webmanifest`, `dev.qr-code.jpg`, `assets/icons/dev/` (dev deployment variant only).
 - `images/{background,no-background}/` icon sources (not referenced by the app; kept as assets).
+
+## Stack decision
+
+Vite + TypeScript without a framework, static build, no backend (user decision). One page with 24 buttons and two `<dialog>` modals does not justify Angular/Ionic; `<dialog>` gives Esc/backdrop closing and focus handling natively. Hand-written `public/sw.js` (lazy cache, about 25 lines) replaces the Angular service worker instead of adding `vite-plugin-pwa`.
+
+## Modernized
+
+`apps/web/family-adventskalender/modernized/`: `index.html`, `src/` (`calendar.ts` unlock logic, `main.ts` UI, `style.css`), `public/` (all assets, manifest, `sw.js`), `tests/calendar.test.ts` (unlock rules, messages, shuffle is a permutation). `npm run lint`, `test` and `build` pass.
+
+Changes against the legacy app:
+
+- `REQUIRED_MONTH` is now `VITE_REQUIRED_MONTH` (build time, no generated environment files).
+- Unbiased Fisher-Yates shuffle; typo fixed; month name via `Intl` instead of a 12-case switch.
+- The date is read on every click and on `visibilitychange` (replaces pull-to-refresh).
+- Dropped: back-button hijack (`popstate`), update alert, dev variant (green manifest, dev QR code; dev assets are still copied), "2020" in title and manifest, `user-scalable=no`, no-cache meta tags. The page is `lang="de"`.
+- Snowflakes are disabled with `prefers-reduced-motion`.
+
+Deviation from the shared conventions: none; the app only adds `jsdom` and `vite` like richkidzofupo.

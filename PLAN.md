@@ -180,10 +180,10 @@ The game was originally one browser game called "Schankimperium" spread over sev
 - [x] Analyze (`docs/family-adventskalender.md`)
 - [x] Clean up and commit legacy (GitLab templates, CI, Docker, commitlint config and lockfile removed)
 - [x] Decide stack (Vite + TypeScript, no framework; hand-written service worker)
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ## Open decisions
 

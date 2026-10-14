@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Allwang Family Adventskalender</title>
+    <link rel="icon" type="image/png" href="/assets/icons/favicon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#7c0102" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Allwang Family Adventskalender</h1>
+      <button id="share" type="button" aria-label="Teile diese App">&#x2197;</button>
+    </header>
+    <div id="snow" aria-hidden="true"></div>
+    <main id="calendar"></main>
+    <dialog id="photo">
+      <header>
+        <h2 id="photo-title"></h2>
+        <button type="button" class="close" aria-label="Schließen">&times;</button>
+      </header>
+      <img id="photo-img" alt="" />
+    </dialog>
+    <dialog id="qr">
+      <header>
+        <h2>Teile diese App</h2>
+        <button type="button" class="close" aria-label="Schließen">&times;</button>
+      </header>
+      <img src="/assets/images/qr-code.jpg" alt="QR-Code zu dieser App" />
+    </dialog>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <noscript>Bitte aktiviere JavaScript, um den Adventskalender zu nutzen.</noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
