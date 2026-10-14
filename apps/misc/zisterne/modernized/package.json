@@ -1,0 +1,32 @@
+{
+  "name": "zisterne",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "vite build && tsx watch --env-file-if-exists=.env src/server/index.ts",
+    "build": "tsc --noEmit && vite build",
+    "start": "tsx --env-file-if-exists=.env src/server/index.ts",
+    "test": "vitest run",
+    "lint": "eslint . && prettier --check ."
+  },
+  "dependencies": {
+    "@fastify/static": "10.1.6",
+    "better-sqlite3": "13.0.3",
+    "fastify": "5.12.7",
+    "socket.io": "4.8.4",
+    "tsx": "4.23.15"
+  },
+  "optionalDependencies": {
+    "pigpio": "3.3.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "9.6.0",
+    "@types/node": "22.20.5",
+    "socket.io-client": "4.8.4",
+    "vite": "8.3.4"
+  }
+}

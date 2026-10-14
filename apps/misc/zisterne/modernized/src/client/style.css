@@ -1,0 +1,40 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f4f6fb;
+  margin: 0;
+}
+main {
+  max-width: 22rem;
+  margin: 2rem auto;
+  text-align: center;
+}
+.tank {
+  position: relative;
+  height: 18rem;
+  overflow: hidden;
+  border: 4px solid #c8d3ec;
+  border-radius: 100% / 40px;
+  background: #fff;
+}
+.liquid {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  background: #3885d8;
+  transition: height 0.4s;
+}
+#percent {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1d2b4a;
+}
+button {
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  margin: 0 0.25rem;
+}

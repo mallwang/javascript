@@ -221,9 +221,9 @@ Notes: `PIGPIO/` contains the vendored pigpio C library with compiled binaries (
 - [x] Analyze (`docs/zisterne.md`)
 - [x] Clean up and commit legacy (vendored `PIGPIO/` with ARM binaries and `package-lock.json` removed; no secrets; `Sonstiges/` and all images kept)
 - [x] Decide stack (Node + TypeScript + Fastify + socket.io, Vite frontend without jQuery; `pigpio` optional behind a driver interface with simulator; `cronjob.py` ported as external HTTP-triggered logger)
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
+- [x] Modernize
+- [x] Test (calc unit tests, server/socket/auth/series integration tests with the simulator; hardware not testable here)
+- [x] Document
 - [ ] Commit
 
 ## Open decisions

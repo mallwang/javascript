@@ -10,7 +10,7 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | `apps/games/` | Browser games: bierspiel (v5, v6), hoehlenmensch                                                                                            |
 | `apps/web/`   | Web apps: iusemybrain, manageyourteam, verwaltungstool, greenscreen, unser-blog, family-adventskalender, procumer-dashboard, family-library |
 | `apps/sites/` | Static sites: hallindi, kia                                                                                                                 |
-| `apps/misc/`  | Small projects: email-check, richkidzofupo                                                                                                  |
+| `apps/misc/`  | Small projects: email-check, richkidzofupo, zisterne                                                                                        |
 | `docs/`       | Analyses, migration plans and status logs                                                                                                   |
 | `tools/`      | Helper tools for analysis and migration                                                                                                     |
 | `PLAN.md`     | Task plan per app, followed and ticked off by every session                                                                                 |
@@ -34,3 +34,4 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | sites/kia                  | yes                                      | done       |
 | misc/email-check           | yes                                      | done       |
 | misc/richkidzofupo         | yes                                      | done       |
+| misc/zisterne              | yes (none found)                         | done       |

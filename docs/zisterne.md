@@ -4,14 +4,14 @@ Source: `gitlab-export/zisterne-master/` (81 files without `node_modules`). Priv
 
 ## Inspect
 
-| Area        | Files                                                                                                                                        |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Server      | `app.js` (236 lines, entry point), `config.json`, `pigpio-mock.js` (GPIO mock for development), `package.json`, `.npmrc`                     |
-| Frontend    | `public/index.html` (inline jQuery script), `css/style.css`, Bootstrap 3 (`bootstrap.min.*`, glyphicons fonts), `jquery-3.2.1.slim.min.js`   |
-| Python      | `zisterne.py` (Python 2 CGI, single reading), `cronjob.py` (Python 2, cron logger writing `logs/<year>.log`)                                 |
-| `PIGPIO/`   | Vendored pigpio C library v64 (sources, man pages, `UNLICENCE`) plus **compiled ARM binaries** (`*.o`, `*.so`, `pigpiod`, `pigs`, `x_*`) and `build/lib.linux-armv6l-2.7/pigpio.py` |
-| `Sonstiges/`| Assets: HC-SR04 datasheets (3 PDFs, 1 DOCX), `RaspberryPiPinbelegung.jpg` (pinout), `Zeichnung.png` (drawing)                               |
-| Other       | `logs/.gitkeep`, `.gitattributes` (generic web template), `.gitignore`, `README.md`                                                          |
+| Area         | Files                                                                                                                                                                               |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Server       | `app.js` (236 lines, entry point), `config.json`, `pigpio-mock.js` (GPIO mock for development), `package.json`, `.npmrc`                                                            |
+| Frontend     | `public/index.html` (inline jQuery script), `css/style.css`, Bootstrap 3 (`bootstrap.min.*`, glyphicons fonts), `jquery-3.2.1.slim.min.js`                                          |
+| Python       | `zisterne.py` (Python 2 CGI, single reading), `cronjob.py` (Python 2, cron logger writing `logs/<year>.log`)                                                                        |
+| `PIGPIO/`    | Vendored pigpio C library v64 (sources, man pages, `UNLICENCE`) plus **compiled ARM binaries** (`*.o`, `*.so`, `pigpiod`, `pigs`, `x_*`) and `build/lib.linux-armv6l-2.7/pigpio.py` |
+| `Sonstiges/` | Assets: HC-SR04 datasheets (3 PDFs, 1 DOCX), `RaspberryPiPinbelegung.jpg` (pinout), `Zeichnung.png` (drawing)                                                                       |
+| Other        | `logs/.gitkeep`, `.gitattributes` (generic web template), `.gitignore`, `README.md`                                                                                                 |
 
 Images: `public/img/quelle_farbig.png` (favicon), `quelle_sw.png` and `gitlab.png` are not referenced anywhere.
 
@@ -100,3 +100,28 @@ None found: no `.env`, no passwords or tokens in `app.js`, `config.json`, Python
 - **Stack (approved):** Node.js 22 + TypeScript, Fastify + socket.io for server and WebSocket, Vite + TypeScript frontend without jQuery/Bootstrap. `pigpio` is an optional dependency behind a small `SensorDriver` interface; a simulating driver is used for development and tests.
 - **Logger (approved):** `cronjob.py` is needed. It is called periodically from outside (cron) to log fill levels and to feed later evaluation (time series). It is ported as a Node CLI/HTTP endpoint that takes a measurement series, drops the first round, and appends to a log and SQLite time series. Details are settled in the modernized README.
 - **Core logic:** distance, volume (correct formula), averaging and outlier filtering are pure functions with unit tests.
+
+## Modernization result
+
+`apps/misc/zisterne/modernized/`: Fastify 5 + socket.io server, Vite client, SQLite (`better-sqlite3`), config via environment variables (`.env.example`). Sensor access sits behind a `Sensor` interface with a simulator (default) and a `pigpio` driver loaded on demand.
+
+Fixed legacy bugs:
+
+- Volume uses `PI * (d/2)^2 / 1000` litres per cm instead of `sqrt(d/2) * PI`.
+- Echo width uses unsigned 32-bit tick arithmetic (`>>> 0`), so the pigpio tick wrap-around no longer produces one wild reading.
+- Distances outside the HC-SR04 range (2-400 cm) and lost echoes are dropped before averaging; if fewer than half of a batch is valid, no value is emitted.
+- The measurement timeout is cleared on stop and renewed on restart. The loop also stops when the last client leaves.
+- Fill level is clamped to 0..maximum, so the percentage never exceeds 100.
+- No catch-all route: unknown URLs return 404.
+- Start/stop requires `API_TOKEN` (socket handshake token, constant-time comparison); other clients are read-only.
+- The development mode now produces measurements (simulator with noise, lost and garbage echoes).
+
+Deviations from the legacy app, with reasons:
+
+- Port 3000 instead of 80: no root needed for the port. Use a reverse proxy for 80.
+- Python scripts are not ported one to one. `cronjob.py` becomes `POST /api/readings` (same 6x20 series, first round dropped) with a SQLite time series and CSV export instead of `logs/<year>.log`; cron calls it with `curl`. `zisterne.py` (CGI single reading) is dropped, the live UI covers it.
+- The old events `client_connected`, `client_disconnected`, `client_started`, `client_stopped`, `client_timeout_reached` and the hidden activity log are replaced by one `state` event (`running`, optional `reason`). The legacy log was never visible.
+- Bootstrap 3 and jQuery are removed; the tank graphic is plain CSS. All images are kept in `public/img/` (only the favicon is used); `emptyFillLevelInCm` and the `socket-io` dependency are dropped as unused.
+- A started measurement is shared by all clients; a series reading is refused while it runs (and vice versa), because there is only one sensor.
+
+Open points: the hardware path (`SENSOR=pigpio`) is untested on a real Pi; the Pi needs the 5 V to 3.3 V divider on the echo pin as before.
