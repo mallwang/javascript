@@ -1,0 +1,61 @@
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
+ErrorDocument 404 /Error
+order deny,allow
+
+RewriteEngine On
+
+# startseite
+RewriteRule ^Aufbau$ /startseite/aufbau.php [L]
+RewriteRule ^Screenshots$ /startseite/screenshots.php [L]
+
+# footer
+RewriteRule ^Impressum$ /footer/impressum.php [L]
+RewriteRule ^Kontakt$ /footer/kontakt.php [L]
+RewriteRule ^Logbuch$ /footer/logbuch.php [L]
+RewriteRule ^Support_Ticket$ /footer/ticket.php [L]
+
+# allgemein
+RewriteRule ^Home$ /index.php [L]
+RewriteRule ^Error$ /error404.php [L]
+RewriteRule ^Login$ /login.php [L]
+RewriteRule ^Registrierung$ /registrieren.php [L]
+RewriteRule ^Bestaetigung/([^/]*)/([^/]*)/([^/]*)$ /bestaetigung.php?key=$1&benutzer=$2&art=$3 [L]
+
+# firma
+RewriteRule ^Firma$ /firma/uebersicht.php [L]
+RewriteRule ^Landwirtschaft$ /firma/landwirtschaft.php [L]
+RewriteRule ^Neues_Gebaeude$ /firma/neuesGebaeude.php [L]
+RewriteRule ^Produktion$ /firma/produktion.php [L]
+RewriteRule ^Sonstige$ /firma/sonstige.php [L]
+RewriteRule ^Transport$ /firma/transport.php [L]
+RewriteRule ^Verkauf$ /firma/verkauf.php [L]
+RewriteRule ^Lager$ /firma/lager.php [L]
+RewriteRule ^Forschung$ /firma/forschung.php [L]
+
+# finanzen
+RewriteRule ^Finanzen$ /finanzen/uebersicht.php [L]
+RewriteRule ^Einnahmen$ /finanzen/einnahmen.php [L]
+RewriteRule ^Ausgaben$ /finanzen/ausgaben.php [L]
+RewriteRule ^Bank$ /finanzen/bank.php [L]
+
+# stadt
+RewriteRule ^Stadt$ /stadt/uebersicht.php [L]
+
+# markt
+RewriteRule ^Markt$ /markt/angebote.php [L]
+RewriteRule ^Eigene_Angebote$ /markt/eigeneAngebote.php [L]
+
+# statistiken
+RewriteRule ^Onlineuser$ /statistiken/onlineuser.php [L]
+RewriteRule ^Userstatistik$ /statistiken/user.php [L]
+
+# nachrichten
+RewriteRule ^Neue_Nachricht$ /nachrichten/neu.php [L]
+RewriteRule ^Posteingang$ /nachrichten/eingang.php [L]
+RewriteRule ^Postausgang$ /nachrichten/ausgang.php [L]
+
+# profil
+RewriteRule ^Profil$ /profil/profil.php [L]
+RewriteRule ^Logout$ /profil/logout.php [L]

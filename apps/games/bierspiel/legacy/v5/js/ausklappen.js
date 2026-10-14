@@ -1,0 +1,12 @@
+$(function(){
+     $("ausklapp").click(function(){
+          if($(this).next("form").is(':visible')!=true){
+               event.preventDefault();
+               $(this).next("form").slideDown(700);
+          }
+          else{
+               event.preventDefault();
+               $(this).next("form").slideUp(700);
+          }            
+     });
+});

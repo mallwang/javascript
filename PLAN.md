@@ -148,10 +148,15 @@ Sizes are file counts of the legacy code.
 
 ### 10. games/bierspiel (v1 to v6, 923 files, 39 MB)
 
-- [ ] Inspect all versions
-- [ ] Diff versions; user decision which versions to keep as legacy and which to modernize (likely v6)
-- [ ] Analyze (`docs/bierspiel.md`; evolution v1 to v6, game rules, DB model)
-- [ ] Clean up and commit legacy (per version)
+- [x] Inspect all versions
+- [x] Diff versions; user decision which versions to keep as legacy and which to modernize
+
+Decision: two lines exist, A = v1 to v2 to v3 to v6 (brewery: buildings, goods markets, bank) and B = v4 to v5 (Metro UI, labour market with bids). Keep `v5` and `v6` as legacy; `v1` to `v4` were deleted (earlier stages or near-identical). Modernize v6 and port the labour market from v5. The v5 labour market must be documented in `docs/bierspiel.md`.
+
+The game was originally one browser game called "Schankimperium" spread over several repos. The GitLab exports were checked: none contained newer game code than `v5`/`v6`, and the two PHP exports were deleted (older copies of `v4` and `v2`). The game design from the Schankimperium monorepo was saved as `docs/bierspiel-concept.md` (vision, not scope of the port) and the empty Nx/Angular scaffold was deleted; a rewrite is a separate later project.
+
+- [x] Analyze (`docs/bierspiel.md`; evolution v1 to v6, game rules, DB model)
+- [x] Clean up and commit legacy (per version)
 - [ ] Decide stack
 - [ ] Modernize
 - [ ] Test

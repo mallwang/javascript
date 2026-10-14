@@ -1,0 +1,10 @@
+<?php $title="AUFBAU"; include("header.php");?>
+<br><br><br><br><br>
+
+<div align="center">
+    <h1>IM AUFBAU... </h1><br>
+    <img src="../images/bauarbeiter.png">
+</div>
+
+<br><br><br><br><br>
+<?php include("footer.php");?>
