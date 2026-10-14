@@ -1,0 +1,92 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "The Family Library backend",
+  "author": "Markus Allwang",
+  "homepage": "",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "rimraf dist && nest build",
+    "compodoc": "compodoc src -p compodoc.json --theme \"laravel\" --name \"Family Library Backend\" --silent",
+    "lint": "eslint {src,test}/**/*.ts",
+    "lint:fix": "eslint {src,test}/**/*.ts --fix",
+    "dev": "ts-node-dev --respawn --transpileOnly src/main.ts",
+    "start": "nest start",
+    "start:debug": "nest start --debug --watch",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config e2e/jest-e2e.json --runInBand --forceExit",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "@godaddy/terminus": "4.3.1",
+    "@hapi/joi": "17.1.0",
+    "@nestjs/common": "6.10.14",
+    "@nestjs/core": "6.10.14",
+    "@nestjs/jwt": "7.1.0",
+    "@nestjs/mongoose": "7.0.1",
+    "@nestjs/passport": "7.1.0",
+    "@nestjs/platform-fastify": "6.11.7",
+    "@nestjs/swagger": "4.2.8",
+    "@nestjs/terminus": "6.5.6",
+    "@types/bcrypt": "3.0.0",
+    "@types/cookie-parser": "1.4.2",
+    "@types/express": "4.17.7",
+    "@types/passport-jwt": "3.0.3",
+    "@types/passport-local": "1.0.33",
+    "bcrypt": "5.0.0",
+    "class-transformer": "0.2.3",
+    "class-validator": "0.11.0",
+    "cookie-parser": "1.4.5",
+    "dotenv": "8.2.0",
+    "fastify-rate-limit": "3.0.1",
+    "fastify-swagger": "2.5.0",
+    "find-config": "1.0.0",
+    "helmet": "3.21.2",
+    "mongoose": "5.9.19",
+    "nodemailer": "6.4.10",
+    "passport": "0.4.1",
+    "passport-jwt": "4.0.0",
+    "passport-local": "1.0.0",
+    "rxjs": "6.5.4"
+  },
+  "devDependencies": {
+    "@compodoc/compodoc": "1.1.11",
+    "@nestjs/cli": "6.13.2",
+    "@nestjs/testing": "6.10.14",
+    "@types/jest": "25.1.1",
+    "@types/node": "13.1.6",
+    "@types/supertest": "2.0.8",
+    "eslint": "6.8.0",
+    "jest": "25.1.0",
+    "supertest": "4.0.2",
+    "ts-jest": "25.1.0",
+    "ts-node": "8.6.2",
+    "ts-node-dev": "1.0.0-pre.44",
+    "tsconfig-paths": "3.9.0",
+    "typescript": "3.7.5"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 10.14.0",
+    "npm": ">= 6.4.1"
+  }
+}

@@ -1,0 +1,252 @@
+<div class="login-wrapper">
+  <form class="login" clrForm [formGroup]="loginForm" (ngSubmit)="login()">
+    <section class="title">
+      <h3 class="welcome">Willkommen in unserer</h3>
+      Familienbibliothek
+      <h5 class="hint">Diese gibt einen Überblick über alle in unserem Besitz befindlichen Bücher.</h5>
+    </section>
+    <div class="login-group">
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">E-Mail</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrInput
+          type="text"
+          formControlName="email"
+          placeholder="E-Mail"
+          autofocus
+        />
+        <clr-control-helper>Bitte geben Sie ihre E-Mail Adresse an.</clr-control-helper>
+        <clr-control-error>Die gewählte E-Mail Adresse ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-password-container>
+        <label class="clr-col-12 clr-col-md-3">Passwort</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrPassword
+          type="password"
+          formControlName="password"
+          placeholder="Passwort"
+        />
+        <clr-control-helper>Bitte geben Sie Ihr Passwort ein.</clr-control-helper>
+        <clr-control-error>Das gewählte Passwort ist ungültig.</clr-control-error>
+      </clr-password-container>
+      <div *ngIf="loginError" class="alert alert-danger" role="alert">
+        <div class="alert-items">
+          <div class="alert-item static">
+            <div class="alert-icon-wrapper">
+              <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+            </div>
+            <span class="alert-text">
+              {{ loginError }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="loginForm.invalid"
+        title="{{ loginForm.invalid ? 'Das Loginformular ist ungültig.' : '' }}"
+      >
+        LOGIN
+      </button>
+      <button style="margin-top: 20px;" (click)="openResetPasswordModal()" type="button" class="btn btn-sm btn-link">
+        Passwort vergessen?
+      </button>
+      <button style="margin-top: 20px;" (click)="openUserAccountModal()" type="button" class="btn btn-outline-info">
+        Benutzerkonto erstellen
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- New user account modal -->
+<clr-modal [(clrModalOpen)]="openUserAccount" [clrModalClosable]="false">
+  <h3 class="modal-title">Neues Benutzerkonto erstellen</h3>
+  <div class="modal-body">
+    <form clrForm [formGroup]="newUserAccountForm" (ngSubmit)="createNewAccount()">
+      <!-- Vorname -->
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Vorname</label>
+        <input class="clr-col-12 clr-col-md-9" clrInput type="text" formControlName="firstName" placeholder="Vorname" />
+        <clr-control-helper>Bitte geben Sie ihren Vornamen an.</clr-control-helper>
+        <clr-control-error>Der gewählte Vorname ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <!-- Nachname -->
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Nachname</label>
+        <input class="clr-col-12 clr-col-md-9" clrInput type="text" formControlName="lastName" placeholder="Nachname" />
+        <clr-control-helper>Bitte geben Sie ihren Nachnamen an.</clr-control-helper>
+        <clr-control-error>Der gewählte Nachname ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <!-- E-Mail Adresse -->
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">E-Mail</label>
+        <input class="clr-col-12 clr-col-md-9" clrInput type="email" formControlName="email" placeholder="E-Mail" />
+        <clr-control-helper>Bitte geben Sie ihre E-Mail Adresse an.</clr-control-helper>
+        <clr-control-error>Die gewählte E-Mail Adresse ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <!-- Passwort -->
+      <clr-password-container>
+        <label class="clr-col-12 clr-col-md-3">Passwort</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrPassword
+          type="password"
+          formControlName="password"
+          placeholder="Passwort"
+        />
+        <clr-control-helper>Bitte geben Sie ein Passwort an (min. 8, max. 36).</clr-control-helper>
+        <clr-control-error>Das gewählte Passwort ist ungültig (min. 8, max. 36).</clr-control-error>
+      </clr-password-container>
+      <!-- Passwort bestätigen -->
+      <clr-password-container>
+        <label class="clr-col-12 clr-col-md-3">Passwort bestätigen</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrPassword
+          type="password"
+          formControlName="password2"
+          placeholder="Passwort bestätigen"
+        />
+        <clr-control-helper>Bitte bestätigen Sie ihr Passwort.</clr-control-helper>
+        <clr-control-error>Das bestätigte Passwort ist ungültig.</clr-control-error>
+      </clr-password-container>
+    </form>
+    <div *ngIf="newUserAccountError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+            {{ newUserAccountError }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="newUserAccountSuccess" class="alert alert-success" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+            Dein Benutzeraccount wurde erfolgreich erstellt, um dich einloggen zu können, musst du aber zunächst deine
+            E-Mail Adresse bestätigen. Eine entsprechende E-Mail wurde an deine E-Mail Adresse
+            <b>{{ newUserAccountEmail }}</b> versandt.
+          </span>
+        </div>
+      </div>
+    </div>
+    <button style="margin-top: 20px;" (click)="openVerificationEmailModal()" type="button" class="btn btn-sm btn-link">
+      Bestätigungs-E-Mail erneut senden?
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="openUserAccount = false">Abbrechen</button>
+    <button type="button" class="btn btn-success" (click)="createNewAccount()" [disabled]="newUserAccountForm.invalid">
+      Erstellen
+    </button>
+  </div>
+</clr-modal>
+
+<!-- Password reset modal -->
+<clr-modal [(clrModalOpen)]="openPasswordReset" [clrModalClosable]="false">
+  <h3 class="modal-title">Neues Passwort anfordern</h3>
+  <div class="modal-body">
+    <form clrForm [formGroup]="passwordResetForm" (ngSubmit)="requestNewPassword()">
+      <!-- E-Mail Adresse -->
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">E-Mail</label>
+        <input class="clr-col-12 clr-col-md-9" clrInput type="email" formControlName="email" placeholder="E-Mail" />
+        <clr-control-helper>Bitte geben Sie ihre E-Mail Adresse an.</clr-control-helper>
+        <clr-control-error>Die gewählte E-Mail Adresse ist ungültig.</clr-control-error>
+      </clr-input-container>
+    </form>
+    <div *ngIf="passwordResetError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+            {{ passwordResetError }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="passwordResetSuccess" class="alert alert-success" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+            Es wurde eine E-Mail zum Zurücksetzen des Passworts an deine E-Mail Adresse
+            <b>{{ passwordResetEmail }}</b> versandt.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="openPasswordReset = false">Abbrechen</button>
+    <button type="button" class="btn btn-success" (click)="requestNewPassword()" [disabled]="passwordResetForm.invalid">
+      Anfordern
+    </button>
+  </div>
+</clr-modal>
+
+<!-- Verification email modal -->
+<clr-modal [(clrModalOpen)]="openVerificationEmail" [clrModalClosable]="false">
+  <h3 class="modal-title">Bestätigungs-E-Mail erneut senden</h3>
+  <div class="modal-body">
+    <form clrForm [formGroup]="verificationEmailForm" (ngSubmit)="resendVerificationEmail()">
+      <!-- E-Mail Adresse -->
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">E-Mail</label>
+        <input class="clr-col-12 clr-col-md-9" clrInput type="email" formControlName="email" placeholder="E-Mail" />
+        <clr-control-helper>Bitte geben Sie ihre E-Mail Adresse an.</clr-control-helper>
+        <clr-control-error>Die gewählte E-Mail Adresse ist ungültig.</clr-control-error>
+      </clr-input-container>
+    </form>
+    <div *ngIf="verificationEmailError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+            {{ verificationEmailError }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="verificationEmailSuccess" class="alert alert-success" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+            Es wurde eine erneute Bestätigungs-E-Mail an deine E-Mail Adresse
+            <b>{{ verificationEmail }}</b> versandt.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="openVerificationEmail = false">Abbrechen</button>
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="resendVerificationEmail()"
+      [disabled]="verificationEmailForm.invalid"
+    >
+      Anfordern
+    </button>
+  </div>
+</clr-modal>

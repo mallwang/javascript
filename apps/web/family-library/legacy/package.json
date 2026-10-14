@@ -1,0 +1,47 @@
+{
+  "name": "family-library",
+  "description": "The Family Library application",
+  "author": "Markus Allwang",
+  "homepage": "",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build:dev": "lerna run build:dev --stream",
+    "build:prod": "lerna run build:prod --stream",
+    "lint": "lerna run lint",
+    "prettier:check": "prettier --check **/*.{json,js,ts,yml,yaml,md,html,scss}",
+    "prettier:format": "prettier --write **/*.{json,js,ts,yml,yaml,md,html,scss}",
+    "start:dev": "lerna run start:dev --stream",
+    "test": "lerna run test",
+    "test:e2e": "lerna run test:e2e",
+    "version": "lerna version --no-git-tag-version"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "8.3.5",
+    "@commitlint/config-conventional": "8.3.4",
+    "@typescript-eslint/eslint-plugin": "2.22.0",
+    "@typescript-eslint/parser": "2.22.0",
+    "eslint": "6.8.0",
+    "eslint-config-google": "0.14.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-prettier": "3.1.2",
+    "husky": "4.2.2",
+    "lerna": "3.20.2",
+    "prettier": "1.19.1",
+    "pretty-quick": "2.0.1",
+    "typescript": "3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "npm run lint",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 10.14.0",
+    "npm": ">= 6.4.1"
+  }
+}

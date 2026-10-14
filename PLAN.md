@@ -200,6 +200,19 @@ Predecessor: `gitlab-export/hausverbrauch` (Angular 7 + NestJS 6, strom and wass
 - [x] Document
 - [x] Commit
 
+### 14. web/family-library (159 files, Lerna monorepo with Angular frontend and NestJS + MongoDB backend: user auth, book inventory; source `gitlab-export/family-library-master`)
+
+Finding: `gitlab-export/family-library-app-master` (Ionic 5 / Angular 9 tabs starter, 61 files, no custom code) was only a skeleton and was deleted. The `.env` files in the monorepo export must be replaced by placeholders before the legacy commit.
+
+- [x] Inspect
+- [x] Analyze (`docs/family-library.md`)
+- [x] Clean up and commit legacy (both `.env` files replaced by placeholders, lockfiles and `commitlint.config.js` removed; no other secrets found)
+- [x] Decide stack (Next.js + TypeScript + SQLite, same as procumer-dashboard)
+- [ ] Modernize
+- [ ] Test
+- [ ] Document
+- [ ] Commit
+
 ## Open decisions
 
 - [x] Baseline for "Shared conventions" (Node version in `.nvmrc`, dependency versions, ESLint/Prettier/TypeScript/Vitest config) defined by the first modernized app and written to `docs/conventions.md`

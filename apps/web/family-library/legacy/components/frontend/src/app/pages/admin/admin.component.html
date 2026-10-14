@@ -1,0 +1,139 @@
+<div class="clr-row">
+  <div class="clr-col"></div>
+  <div class="clr-col-xl-6 clr-col-lg-8 clr-col-md-10 clr-col-sm-12">
+    <h1>Administration</h1>
+    <button class="btn btn-sm" (click)="openUserModal('CREATE')">Benutzer hinzufügen</button>
+  </div>
+  <div class="clr-col"></div>
+</div>
+
+<div class="clr-row">
+  <div class="clr-col"></div>
+  <div class="clr-col-xl-6 clr-col-lg-8 clr-col-md-10 clr-col-sm-12">
+    <clr-datagrid class="datagrid-compact">
+      <clr-dg-column [clrDgField]="'firstName'">Vorname</clr-dg-column>
+      <clr-dg-column [clrDgField]="'lastName'" [clrDgSortOrder]="descSort">Nachname</clr-dg-column>
+      <clr-dg-column [clrDgField]="'email'">E-Mail</clr-dg-column>
+      <clr-dg-column [clrDgField]="'role'">Rolle</clr-dg-column>
+
+      <clr-dg-placeholder>{{
+        loading ? 'Benutzer werden geladen...' : 'Es wurden keine Benutzer gefunden.'
+      }}</clr-dg-placeholder>
+
+      <clr-dg-row *clrDgItems="let user of users">
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="openUserModal('EDIT', user)">Bearbeiten</button>
+          <button class="action-item" (click)="openDeletionConfirmationModal(user)">
+            Löschen
+          </button>
+        </clr-dg-action-overflow>
+        <clr-dg-cell>{{ user.firstName }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.lastName }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.email }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.role | titlecase }}</clr-dg-cell>
+      </clr-dg-row>
+
+      <clr-dg-footer *ngIf="users.length > 0">
+        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+          <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Benutzer pro Seite</clr-dg-page-size>
+          {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} von {{ pagination.totalItems }} Benutzern
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+  <div class="clr-col"></div>
+</div>
+
+<!-- Deletion confirmation modal -->
+<clr-modal [(clrModalOpen)]="openDeletionConfirmation" [clrModalClosable]="false" [clrModalSize]="'sm'">
+  <h3 class="modal-title">Löschen bestätigen</h3>
+  <div class="modal-body">
+    <p *ngIf="userToBeDeleted">
+      Möchtest du den Benutzer <br />
+      <b>{{ userToBeDeleted.firstName }} {{ userToBeDeleted.lastName }} ({{ userToBeDeleted.email }})</b> <br />
+      wirklich löschen?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="openDeletionConfirmation = false">Abbrechen</button>
+    <button type="button" class="btn btn-danger" (click)="deleteUser()">Löschen</button>
+  </div>
+</clr-modal>
+
+<!-- Create / edit a user -->
+<clr-modal [(clrModalOpen)]="openUser" [clrModalClosable]="false">
+  <h3 class="modal-title">{{ mode === 'CREATE' ? 'Neuen Benutzer hinzufügen' : 'Benutzer bearbeiten' }}</h3>
+  <div class="modal-body">
+    <form *ngIf="openUser" clrForm [formGroup]="userForm" (ngSubmit)="saveUser()">
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Vorname*</label>
+        <input class="clr-col-12 clr-col-md-9" clrInput type="text" formControlName="firstName" placeholder="Vorname" />
+        <clr-control-helper>Bitte geben Sie ihren Vornamen an.</clr-control-helper>
+        <clr-control-error>Der gewählte Vorname ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Nachname*</label>
+        <input class="clr-col-12 clr-col-md-9" clrInput type="text" formControlName="lastName" placeholder="Nachname" />
+        <clr-control-helper>Bitte geben Sie ihren Nachnamen an.</clr-control-helper>
+        <clr-control-error>Der gewählte Nachname ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">E-Mail*</label>
+        <input class="clr-col-12 clr-col-md-9" clrInput type="email" formControlName="email" placeholder="E-Mail" />
+        <clr-control-helper>Bitte geben Sie ihre E-Mail Adresse an.</clr-control-helper>
+        <clr-control-error>Die gewählte E-Mail Adresse ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-select-container>
+        <label class="clr-col-12 clr-col-md-3">Rolle*</label>
+        <select class="clr-col-12 clr-col-md-9" clrSelect formControlName="role">
+          <option *ngFor="let role of roles" [ngValue]="role">{{ role | titlecase }}</option>
+        </select>
+        <clr-control-helper>Bitte geben Sie die Rolle an.</clr-control-helper>
+        <clr-control-error>Die gewählte Rolle ist ungültig.</clr-control-error>
+      </clr-select-container>
+      <clr-password-container>
+        <label class="clr-col-12 clr-col-md-3">Passwort*</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrPassword
+          type="password"
+          formControlName="password"
+          placeholder="Passwort"
+        />
+        <clr-control-helper>Bitte geben Sie ein Passwort an (min. 8, max. 36).</clr-control-helper>
+        <clr-control-error>Das gewählte Passwort ist ungültig (min. 8, max. 36).</clr-control-error>
+      </clr-password-container>
+      <clr-password-container>
+        <label class="clr-col-12 clr-col-md-3">Passwort bestätigen*</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrPassword
+          type="password"
+          formControlName="password2"
+          placeholder="Passwort bestätigen"
+        />
+        <clr-control-helper>Bitte bestätigen Sie ihr Passwort.</clr-control-helper>
+        <clr-control-error>Das bestätigte Passwort ist ungültig.</clr-control-error>
+      </clr-password-container>
+      <p><strong>* Pflichtfelder</strong></p>
+    </form>
+    <div *ngIf="userError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+            {{ userError }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="openUser = false">Abbrechen</button>
+    <button type="button" class="btn btn-success" (click)="saveUser()" [disabled]="userForm.invalid">
+      {{ mode === 'CREATE' ? 'Erstellen' : 'Aktualisieren' }}
+    </button>
+  </div>
+</clr-modal>

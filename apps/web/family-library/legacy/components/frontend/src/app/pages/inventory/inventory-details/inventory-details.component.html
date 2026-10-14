@@ -1,0 +1,77 @@
+<!-- Header -->
+<div class="clr-row">
+  <div class="clr-col"></div>
+  <div class="clr-col-4">
+    <clr-alert *ngIf="error" [clrAlertType]="'danger'">
+      <clr-alert-item>
+        <span class="alert-text">
+          {{ error }}
+        </span>
+      </clr-alert-item>
+    </clr-alert>
+    <button class="btn btn-sm disabled">Buch ausleihen</button>
+  </div>
+  <div class="clr-col"></div>
+</div>
+
+<!-- Details -->
+<div *ngIf="book">
+  <!-- Title -->
+  <div *ngIf="book.title" class="clr-row">
+    <div class="clr-col"></div>
+    <div class="clr-col-4">
+      <h1>{{ book.title }} {{ book.year ? '(' + book.year + ')' : '' }}</h1>
+    </div>
+    <div class="clr-col"></div>
+  </div>
+
+  <!-- Author -->
+  <div *ngIf="book.author" class="clr-row">
+    <div class="clr-col"></div>
+    <div class="clr-col-4">
+      <h5><b>Autor:</b> {{ book.author }}</h5>
+    </div>
+    <div class="clr-col"></div>
+  </div>
+
+  <!-- Language -->
+  <div *ngIf="book.language" class="clr-row">
+    <div class="clr-col"></div>
+    <div class="clr-col-4">
+      <h5><b>Sprache:</b> {{ book.language }}</h5>
+    </div>
+    <div class="clr-col"></div>
+  </div>
+
+  <!-- ISBN -->
+  <div *ngIf="book.isbn" class="clr-row">
+    <div class="clr-col"></div>
+    <div class="clr-col-4">
+      <h5>
+        <b>ISBN:</b> {{ book.isbn }} (<a target="_blank" [href]="'https://www.amazon.de/s?k=' + book.isbn"
+          >in Amazon öffnen</a
+        >)
+      </h5>
+    </div>
+    <div class="clr-col"></div>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="book.content" class="clr-row">
+    <div class="clr-col"></div>
+    <div class="clr-col-4">
+      <h5><b>Inhalt:</b></h5>
+      {{ book.content }}
+    </div>
+    <div class="clr-col"></div>
+  </div>
+
+  <!-- Eigentümer -->
+  <div *ngIf="book.ownerId && owner" class="clr-row">
+    <div class="clr-col"></div>
+    <div class="clr-col-4">
+      <h5><b>Eigentümer:</b> {{ owner.firstName }} {{ owner.lastName }} ({{ owner.email }})</h5>
+    </div>
+    <div class="clr-col"></div>
+  </div>
+</div>

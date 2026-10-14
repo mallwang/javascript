@@ -1,0 +1,34 @@
+<div *ngIf="isAuthenticated" class="main-container">
+  <header class="header header-6">
+    <div class="branding">
+      <a href="/" class="nav-link">
+        <span class="title">Familienbibliothek</span>
+      </a>
+    </div>
+    <div class="header-nav">
+      <a *ngIf="user.role === 'admin'" routerLink="administration" class="nav-link"
+        ><span class="nav-text">Administration</span></a
+      >
+      <a routerLink="buecherregal" class="nav-link"><span class="nav-text">Bücherregal</span></a>
+      <!--    <a routerLink="hilfe" class="nav-link"><span class="nav-text">Hilfe</span></a>-->
+    </div>
+    <div class="header-actions">
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
+          {{ user.firstName }} {{ user.lastName }}
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <a (click)="logout()" clrDropdownItem>Logout</a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+    </div>
+  </header>
+  <div class="content-container">
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<router-outlet *ngIf="!isAuthenticated"></router-outlet>

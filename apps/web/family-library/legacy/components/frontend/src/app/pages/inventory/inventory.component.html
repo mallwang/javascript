@@ -1,0 +1,198 @@
+<div class="clr-row">
+  <div class="clr-col"></div>
+  <div class="clr-col-xl-6 clr-col-lg-8 clr-col-md-10 clr-col-sm-12">
+    <h1>
+      Bücherregal {{ books.length > 0 ? '(' + books.length + (books.length === 1 ? ' Buch' : ' Bücher') + ')' : '' }}
+    </h1>
+    <button class="btn btn-sm" (click)="openBookModal('CREATE')">Buch hinzufügen</button>
+  </div>
+  <div class="clr-col"></div>
+</div>
+
+<div class="clr-row">
+  <div class="clr-col"></div>
+  <div class="clr-col-xl-6 clr-col-lg-8 clr-col-md-10 clr-col-sm-12">
+    <clr-datagrid class="datagrid-compact">
+      <clr-dg-column [clrDgField]="'title'" [clrDgSortOrder]="descSort">Titel</clr-dg-column>
+      <clr-dg-column [clrDgField]="'author'">Autor</clr-dg-column>
+      <clr-dg-column [clrDgField]="'year'">Jahr</clr-dg-column>
+      <clr-dg-column [clrDgField]="'language'">Sprache</clr-dg-column>
+
+      <clr-dg-placeholder>{{
+        loading ? 'Bücher werden geladen...' : 'Es wurden keine Bücher gefunden.'
+      }}</clr-dg-placeholder>
+
+      <clr-dg-row *clrDgItems="let book of books">
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="openBookDetails(book._id)">Details</button>
+          <button class="action-item" *ngIf="book.ownerId === currentId" (click)="openBookModal('EDIT', book)">
+            Bearbeiten
+          </button>
+          <button class="action-item" *ngIf="book.ownerId === currentId" (click)="openDeletionConfirmationModal(book)">
+            Löschen
+          </button>
+        </clr-dg-action-overflow>
+        <clr-dg-cell>{{ book.title }}</clr-dg-cell>
+        <clr-dg-cell>{{ book.author }}</clr-dg-cell>
+        <clr-dg-cell>{{ book.year }}</clr-dg-cell>
+        <clr-dg-cell>{{ book.language }}</clr-dg-cell>
+      </clr-dg-row>
+
+      <clr-dg-footer *ngIf="books.length > 0">
+        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+          <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Bücher pro Seite</clr-dg-page-size>
+          {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} von {{ pagination.totalItems }} Büchern
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+  <div class="clr-col"></div>
+</div>
+
+<!-- Deletion confirmation modal -->
+<clr-modal [(clrModalOpen)]="openDeletionConfirmation" [clrModalClosable]="false" [clrModalSize]="'sm'">
+  <h3 class="modal-title">Löschen bestätigen</h3>
+  <div class="modal-body">
+    <p *ngIf="bookToBeDeleted">
+      Möchtest du das Buch <br />
+      <b>{{ bookToBeDeleted.title }} ({{ bookToBeDeleted.author }})</b> <br />
+      wirklich löschen?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="openDeletionConfirmation = false">Abbrechen</button>
+    <button type="button" class="btn btn-danger" (click)="deleteBook()">Löschen</button>
+  </div>
+</clr-modal>
+
+<!-- Create / edit a book -->
+<clr-modal [(clrModalOpen)]="openBook" [clrModalClosable]="false">
+  <h3 class="modal-title">{{ mode === 'CREATE' ? 'Neues Buch hinzufügen' : 'Buch bearbeiten' }}</h3>
+  <div class="modal-body">
+    <form *ngIf="openBook" clrForm [formGroup]="newBookForm" (ngSubmit)="saveBook()">
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Titel*</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrInput
+          type="text"
+          formControlName="title"
+          placeholder="Titel"
+          autocomplete="off"
+        />
+        <clr-control-helper>Bitte geben Sie den Titel des Buches ein.</clr-control-helper>
+        <clr-control-error>Der gewählte Titel ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Autor*</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrInput
+          type="text"
+          formControlName="author"
+          placeholder="Autor"
+          autocomplete="off"
+        />
+        <clr-control-helper>Bitte geben Sie den Autor des Buches ein.</clr-control-helper>
+        <clr-control-error>Der gewählte Autor ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">ISBN*</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrInput
+          type="text"
+          formControlName="isbn"
+          placeholder="ISBN"
+          autocomplete="off"
+        />
+        <clr-control-helper>Bitte geben Sie die ISBN des Buches an.</clr-control-helper>
+        <clr-control-error>Die gewählte ISBN ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Jahr*</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrInput
+          type="number"
+          formControlName="year"
+          placeholder="Jahr"
+          autocomplete="off"
+        />
+        <clr-control-helper>Bitte geben Sie das Erscheinungsjahr des Buches an.</clr-control-helper>
+        <clr-control-error>Das gewählte Jahr ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Sprache*</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrInput
+          type="text"
+          formControlName="language"
+          placeholder="Sprache"
+          autocomplete="off"
+        />
+        <clr-control-helper>Bitte geben Sie die Sprache des Buches an.</clr-control-helper>
+        <clr-control-error>Die gewählte Sprache ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Inhalt</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrInput
+          type="text"
+          formControlName="content"
+          placeholder="Inhalt"
+          autocomplete="off"
+        />
+        <clr-control-helper>Bitte geben Sie den Inhalt des Buches an.</clr-control-helper>
+        <clr-control-error>Der gewählte Inhalt ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Coverbild</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrInput
+          type="text"
+          formControlName="coverImage"
+          placeholder="Cover Bild"
+          autocomplete="off"
+        />
+        <clr-control-helper>Bitte geben Sie die Adresse zum Coverbild des Buches an.</clr-control-helper>
+        <clr-control-error>Die gewählte Adresse ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-col-12 clr-col-md-3">Eigentümer*</label>
+        <input
+          class="clr-col-12 clr-col-md-9"
+          clrInput
+          type="text"
+          formControlName="ownerId"
+          placeholder="Eigentümer"
+          autocomplete="off"
+        />
+        <clr-control-helper>Bitte geben Sie den Eigentümer des Buches an.</clr-control-helper>
+        <clr-control-error>Der gewählte Eigentümer ist ungültig.</clr-control-error>
+      </clr-input-container>
+      <p><strong>* Pflichtfelder</strong></p>
+    </form>
+    <div *ngIf="bookError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+            {{ bookError }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="openBook = false">Abbrechen</button>
+    <button type="button" class="btn btn-success" (click)="saveBook()" [disabled]="newBookForm.invalid">
+      {{ mode === 'CREATE' ? 'Erstellen' : 'Aktualisieren' }}
+    </button>
+  </div>
+</clr-modal>

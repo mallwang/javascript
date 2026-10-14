@@ -1,0 +1,385 @@
+image: 'node:12.14.0-alpine'
+
+variables:
+  PACKAGES_DIR: components
+  FRONTEND_DIR: frontend
+  BACKEND_DIR: backend
+  DOCKER_DIR: docker
+  APP_DIR: app
+
+stages:
+  - dependencycheck
+  - test
+  - build
+  - integration
+  - build-docker
+  - deploy
+
+# =============================================================================
+# Templates
+# =============================================================================
+
+# Build the frontend artifacts
+.build-frontend: &build-frontend
+  image: 'node:12.14.0-buster'
+  script:
+    - cd ${PACKAGES_DIR}/${FRONTEND_DIR}
+    # Overwrite existing dotenv file
+    - echo "${ENVIRONMENT_DOTENV}" > .env
+    - npm ci
+    - npm run config:env
+    - npm run build:${ENVIRONMENT}
+    - npm run compodoc
+
+# Build the backend artifacts
+.build-backend: &build-backend
+  image: 'node:12.14.0-buster'
+  script:
+    - cd ${PACKAGES_DIR}/${BACKEND_DIR}
+    # Overwrite existing dotenv file
+    - echo "${ENVIRONMENT_DOTENV}" > src/.env
+    - npm ci
+    - npm run build
+    - npm run compodoc
+
+.build-docker: &build-docker
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: ['']
+  script:
+    - echo "create docker image ${IMAGE_TAG}:${IMAGE_LABEL_CURRENT}"
+    - echo "create docker image ${IMAGE_TAG}:${IMAGE_LABEL_LATEST}"
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"username\":\"gitlab-ci-token\",\"password\":\"${CI_JOB_TOKEN}\"}}}" > /kaniko/.docker/config.json
+    - >
+      /kaniko/executor --context ${CONTEXT_DIR} \
+        --dockerfile ${DOCKERFILE} \
+        --destination ${IMAGE_TAG}:${IMAGE_LABEL_CURRENT} \
+        --destination ${IMAGE_TAG}:${IMAGE_LABEL_LATEST} \
+        --build-arg npm_registry=${npm_config_registry} \
+        --build-arg http_proxy=${CODE_PROXY} \
+        --build-arg https_proxy=${CODE_PROXY} \
+        --build-arg no_proxy=${NO_PROXY}
+    - echo "created docker image ${IMAGE_TAG}:${IMAGE_LABEL_CURRENT}"
+    - echo "created docker image ${IMAGE_TAG}:${IMAGE_LABEL_LATEST}"
+
+# Check dependencies for security vulnerabilities using NPM
+.dependencycheck-npm: &dependencycheck-npm
+  script:
+    - cd ${PROJECT_DIR}
+    - apk add jq
+    - (npm audit --json --audit-level=moderate | jq '.metadata')
+  allow_failure: true
+
+# Package the backend and frontend assets into the app folder (used as Dockerfile context)
+.integration: &integration
+  script:
+    - mkdir ${APP_DIR}
+    - cp -r ${PACKAGES_DIR}/${BACKEND_DIR}/dist/ ${APP_DIR}/${BACKEND_DIR}
+    - cp ${PACKAGES_DIR}/${BACKEND_DIR}/package*.json ${APP_DIR}
+    - cp -r ${PACKAGES_DIR}/${FRONTEND_DIR}/dist/${FRONTEND_DIR}/ ${APP_DIR}/${FRONTEND_DIR}
+
+# =============================================================================
+# Stage: dependencycheck
+# =============================================================================
+dependencycheck:frontend:npm:
+  <<: *dependencycheck-npm
+  stage: dependencycheck
+  only:
+    - branches
+  variables:
+    PROJECT_DIR: ${PACKAGES_DIR}/${FRONTEND_DIR}
+
+dependencycheck:backend:npm:
+  <<: *dependencycheck-npm
+  stage: dependencycheck
+  only:
+    - branches
+  variables:
+    PROJECT_DIR: ${PACKAGES_DIR}/${BACKEND_DIR}
+
+# =============================================================================
+# Stage: test
+# =============================================================================
+test:frontend:dev:
+  stage: test
+  image: 'node:12.14.0-buster'
+  dependencies: []
+  only:
+    refs:
+      - branches
+    changes:
+      - components/frontend/**/*
+  except:
+    - master
+  script:
+    - npm ci
+    - cd ${PACKAGES_DIR}/${FRONTEND_DIR}
+    - npm ci
+    - npm run lint
+    #    - npm run test -- --progress=false --code-coverage
+    #    - npm run webdriver:update
+    #    - npm run test:e2e
+    # Test if production angular app can be built
+    - npm run build:prod
+
+test:backend:dev:
+  stage: test
+  image: 'node:12.14.0-buster'
+  dependencies: []
+  only:
+    refs:
+      - branches
+    changes:
+      - components/backend/**/*
+  except:
+    - master
+  script:
+    - npm ci
+    - cd ${PACKAGES_DIR}/${BACKEND_DIR}
+    - npm ci
+    - npm run lint
+  #    - npm run test:e2e
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+
+## =============================================================================
+## Stage: build
+## =============================================================================
+
+#####################
+#### DEVELOPMENT ####
+#####################
+build:frontend:dev:
+  <<: *build-frontend
+  stage: build
+  dependencies: []
+  only:
+    refs:
+      - branches
+    changes:
+      - components/frontend/**/*
+      - components/backend/**/*
+  except:
+    - master
+  variables:
+    ENVIRONMENT_DOTENV: ${DEV_ENVIRONMENT_DOTENV}
+    ENVIRONMENT: dev
+    FOLDER_DOCUMENTATION: documentation
+    FOLDER_STATIC: dist
+  artifacts:
+    name: build-frontend-dev
+    paths:
+      - ${PACKAGES_DIR}/${FRONTEND_DIR}/${FOLDER_DOCUMENTATION}
+      - ${PACKAGES_DIR}/${FRONTEND_DIR}/${FOLDER_STATIC}
+    expire_in: 1 hour
+
+build:backend:dev:
+  <<: *build-backend
+  stage: build
+  dependencies: []
+  only:
+    refs:
+      - branches
+    changes:
+      - components/frontend/**/*
+      - components/backend/**/*
+  except:
+    - master
+  variables:
+    ENVIRONMENT_DOTENV: ${DEV_ENVIRONMENT_DOTENV}
+    FOLDER_DOCUMENTATION: documentation
+    FOLDER_STATIC: dist
+  artifacts:
+    name: build-backend-dev
+    paths:
+      - ${PACKAGES_DIR}/${BACKEND_DIR}/${FOLDER_DOCUMENTATION}
+      - ${PACKAGES_DIR}/${BACKEND_DIR}/${FOLDER_STATIC}
+      - ${PACKAGES_DIR}/${BACKEND_DIR}/package*.json
+    expire_in: 1 hour
+
+######################
+###### PRODUCTION ####
+######################
+build:frontend:prod:
+  <<: *build-frontend
+  stage: build
+  dependencies: []
+  only:
+    - master
+  variables:
+    ENVIRONMENT_DOTENV: ${PROD_ENVIRONMENT_DOTENV}
+    ENVIRONMENT: prod
+    FOLDER_DOCUMENTATION: documentation
+    FOLDER_STATIC: dist
+  artifacts:
+    name: build-frontend-prod
+    paths:
+      - ${PACKAGES_DIR}/${FRONTEND_DIR}/${FOLDER_DOCUMENTATION}
+      - ${PACKAGES_DIR}/${FRONTEND_DIR}/${FOLDER_STATIC}
+    expire_in: 1 week
+
+build:backend:prod:
+  <<: *build-backend
+  stage: build
+  dependencies: []
+  only:
+    - master
+  variables:
+    ENVIRONMENT_DOTENV: ${PROD_ENVIRONMENT_DOTENV}
+    FOLDER_DOCUMENTATION: documentation
+    FOLDER_STATIC: dist
+  artifacts:
+    name: build-backend-prod
+    paths:
+      - ${PACKAGES_DIR}/${BACKEND_DIR}/${FOLDER_DOCUMENTATION}
+      - ${PACKAGES_DIR}/${BACKEND_DIR}/${FOLDER_STATIC}
+      - ${PACKAGES_DIR}/${BACKEND_DIR}/package*.json
+    expire_in: 1 week
+
+## =============================================================================
+## Stage: integration
+## =============================================================================
+
+#####################
+#### DEVELOPMENT ####
+#####################
+integration:dev:
+  <<: *integration
+  stage: integration
+  dependencies:
+    - build:frontend:dev
+    - build:backend:dev
+  only:
+    refs:
+      - branches
+    changes:
+      - components/frontend/**/*
+      - components/backend/**/*
+  except:
+    - master
+  artifacts:
+    name: integration-dev
+    paths:
+      - ${APP_DIR}
+    expire_in: 1 hour
+
+#####################
+##### PRODUCTION ####
+#####################
+integration:prod:
+  <<: *integration
+  stage: integration
+  dependencies:
+    - build:frontend:prod
+    - build:backend:prod
+  only:
+    - master
+  artifacts:
+    name: integration-prod
+    paths:
+      - ${APP_DIR}
+    expire_in: 1 week
+
+## =============================================================================
+## Stage: build-docker
+## =============================================================================
+
+#####################
+#### DEVELOPMENT ####
+#####################
+build:docker:app:dev:
+  <<: *build-docker
+  stage: build-docker
+  dependencies:
+    - integration:dev
+  variables:
+    CONTEXT_DIR: ${APP_DIR}
+    DOCKERFILE: ${DOCKER_DIR}/${APP_DIR}/Dockerfile
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}/${APP_DIR}
+    IMAGE_LABEL_CURRENT: ${CI_COMMIT_SHORT_SHA}
+    IMAGE_LABEL_LATEST: branch-latest
+  only:
+    refs:
+      - branches
+    changes:
+      - components/frontend/**/*
+      - components/backend/**/*
+  except:
+    - master
+
+#####################
+##### PRODUCTION ####
+#####################
+build:docker:app:prod:
+  <<: *build-docker
+  stage: build-docker
+  dependencies:
+    - integration:prod
+  variables:
+    CONTEXT_DIR: ${APP_DIR}
+    DOCKERFILE: ${DOCKER_DIR}/${APP_DIR}/Dockerfile
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}/${APP_DIR}
+    IMAGE_LABEL_CURRENT: master
+    IMAGE_LABEL_LATEST: latest
+  only:
+    - master
+
+## =============================================================================
+## Stage: deploy
+## =============================================================================
+
+#####################
+#### DEVELOPMENT ####
+#####################
+deploy:backend:dev:
+  stage: deploy
+  dependencies:
+    - build:backend:dev
+  only:
+    refs:
+      - branches
+    changes:
+      - components/backend/**/*
+  except:
+    - master
+  script:
+    - echo "in deploy:backend:dev"
+
+#####################
+####### MASTER ######
+#####################
+deploy:backend:test:
+  stage: deploy
+  dependencies:
+    - build:backend:prod
+  when: manual
+  only:
+    - master
+  script:
+    - echo "in deploy:backend:prod"
+
+#####################
+######## TAGS #######
+#####################
+deploy:backend:prod:
+  stage: deploy
+  dependencies:
+    - build:backend:prod
+  when: manual
+  only:
+    - tags
+  script:
+    - echo "in deploy:backend:prod"
+
+pages:
+  stage: deploy
+  dependencies:
+    - build:frontend:prod
+  only:
+    - master
+  script:
+    - mv ${PACKAGES_DIR}/${FRONTEND_DIR}/documentation/ public/
+  artifacts:
+    name: pages
+    paths:
+      - public
+    expire_in: 1 week

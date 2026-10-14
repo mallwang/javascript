@@ -1,0 +1,14 @@
+# All folders except e2e, scripts and src
+coverage
+dist
+documentation
+node_modules
+
+# All files in the directory
+/*.*
+
+# All non JavaScript or TypeScript files
+**/*.html
+**/*.json
+**/*.md
+**/*.scss
