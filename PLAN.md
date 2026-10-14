@@ -208,10 +208,10 @@ Finding: `gitlab-export/family-library-app-master` (Ionic 5 / Angular 9 tabs sta
 - [x] Analyze (`docs/family-library.md`)
 - [x] Clean up and commit legacy (both `.env` files replaced by placeholders, lockfiles and `commitlint.config.js` removed; no other secrets found)
 - [x] Decide stack (Next.js + TypeScript + SQLite, same as procumer-dashboard)
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ## Open decisions
 

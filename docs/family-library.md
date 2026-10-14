@@ -76,9 +76,36 @@ Quality and dead code:
 - Most frontend `.spec.ts` files are generated stubs; backend has one controller spec, one config spec and an e2e stub.
 - Frontend and backend duplicate form validation rules only partially (ISBN regex only in the frontend; the backend only checks `IsNotEmpty`).
 
-## Open questions for the stack decision
+## Stack decision
 
-- Stack is decided: Next.js + TypeScript + SQLite, same as `procumer-dashboard` (see `PLAN.md`). To be decided during modernization:
-  - Auth: session cookie (httpOnly) instead of a localStorage JWT, password hashing (bcrypt or argon2), whether self-registration stays open or becomes invite/admin-only.
-  - Mail: keep nodemailer with SMTP placeholders; in dev log mails to the console when SMTP is not configured.
-  - Whether to implement `content`/`coverImage` (default: drop them).
+Next.js + TypeScript + SQLite, same as `procumer-dashboard`. One app replaces the NestJS backend and the Angular frontend; server actions replace the REST API.
+
+- Registration stays open, with e-mail verification (the verification link is valid for 24 hours).
+- Auth: random session token in an httpOnly cookie (`SameSite=Lax`, `Secure` in production), only its SHA-256 hash is stored in SQLite. Passwords: scrypt (`node:crypto`).
+- Mail: nodemailer with SMTP settings from `.env`; without `SMTP_HOST` mails are printed to the console.
+- Book `content` and `coverImage` are dropped (never filled or shown in the legacy UI).
+
+## Modernized (`apps/web/family-library/modernized/`)
+
+Next.js 16 + TypeScript + SQLite (`better-sqlite3`), same versions as `procumer-dashboard`; new dependency `nodemailer` 10.1.1. German UI, English code.
+
+- Pages: `/login`, `/register`, `/verify`, `/forgot-password`, `/reset-password`, `/books` (inventory and add form), `/books/[id]` (details with owner, edit, delete), `/admin`, `/help`.
+- Tables: `user`, `book`, `session`, `token` (verification and reset tokens, hashed, single use).
+- First admin: the account whose address equals `ADMIN_EMAIL` becomes admin when it verifies its e-mail address.
+
+Security fixes compared to the legacy app:
+
+- Role is never read from a request; new users are always `user`; `verified` and tokens cannot be set by clients.
+- Only the owner or an admin can update or delete a book; the owner is always the signed-in user.
+- All passwords are hashed, including password reset.
+- Verification and reset tokens: `crypto.randomBytes(32)`, stored as hash, expire (24 h / 1 h), single use. A reset signs the user out everywhere.
+- E-mail actions are POST forms (the link only opens a confirmation form); registration, resend, forgot and login responses do not reveal whether an address exists; failed logins take the same time for unknown addresses.
+- Inputs are validated server-side with an explicit field list (unknown fields are ignored), including the ISBN and year rules that were frontend-only. Mails are plain text. Credentials are not logged. No CORS endpoints exist. In-memory rate limits protect login, registration, resend and forgot.
+- Notices are passed as codes, never as free text.
+
+Deviations from the legacy behavior:
+
+- Admin user management is reduced to listing, changing the role and deleting; admins cannot change or delete themselves. Editing names, emails and passwords of other users was dropped. Deleting a user also deletes their books.
+- Swagger, helmet, Lerna, Docker, GitLab CI, and the REST API are dropped.
+- A logged-out visitor is redirected to `/login` for every page except help, register and the mail-link pages.
+- Rate limits are per process and in memory.
