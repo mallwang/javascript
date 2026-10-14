@@ -15,7 +15,7 @@ npm run dev            # http://localhost:3000
 
 Open the app and upload your workbook (`.xlsx`) in the "Import" form. The file is parsed in memory and only the readings are stored in `data/app.db`; the workbook itself is never saved. `data/` and `.env` are git-ignored, so private data stays local.
 
-Expected workbook layout: one sheet per meter (`Strombezug` for electricity, `Zaehler Wasser` for water; override with `SHEET_STROM`, `SHEET_WASSER`), column A = date, column B = meter reading. Rows without a date in column A or a number in column B are ignored. Re-uploading replaces the stored readings of every meter whose sheet is found.
+Expected workbook layout: one sheet per meter (`Strombezug` for electricity, `Zaehler Wasser` for water; the older names `Zählerstände Strom` and `Zählerstände Wasser` are accepted as a fallback; override the first choice with `SHEET_STROM`, `SHEET_WASSER`), column A = date, column B = meter reading. Rows without a date in column A or a number in column B are ignored. Re-uploading replaces the stored readings of every meter whose sheet is found.
 
 The app has no login: run it locally only.
 

@@ -3,8 +3,17 @@ import type { Reading } from './consumption';
 import type { Db } from './db';
 
 export const meters = {
-  strom: { label: 'Strom', unit: 'kWh', sheet: process.env.SHEET_STROM ?? 'Strombezug' },
-  wasser: { label: 'Wasser', unit: 'm³', sheet: process.env.SHEET_WASSER ?? 'Zaehler Wasser' },
+  // Sheet names tried in order: env override or current layout, then the older "hausverbrauch" layout.
+  strom: {
+    label: 'Strom',
+    unit: 'kWh',
+    sheets: [process.env.SHEET_STROM ?? 'Strombezug', 'Zählerstände Strom'],
+  },
+  wasser: {
+    label: 'Wasser',
+    unit: 'm³',
+    sheets: [process.env.SHEET_WASSER ?? 'Zaehler Wasser', 'Zählerstände Wasser'],
+  },
 } as const;
 export type Meter = keyof typeof meters;
 export const isMeter = (s: string): s is Meter => s in meters;
@@ -44,11 +53,13 @@ export async function importWorkbook(
 ): Promise<Partial<Record<Meter, number>>> {
   const counts: Partial<Record<Meter, number>> = {};
   for (const meter of Object.keys(meters) as Meter[]) {
-    try {
-      const rows = await readSheet(file, meters[meter].sheet);
-      counts[meter] = storeReadings(db, meter, parseRows(rows));
-    } catch (e) {
-      if (!(e instanceof Error && e.name === 'SheetNotFoundError')) throw e;
+    for (const sheet of meters[meter].sheets) {
+      try {
+        counts[meter] = storeReadings(db, meter, parseRows(await readSheet(file, sheet)));
+        break;
+      } catch (e) {
+        if (!(e instanceof Error && e.name === 'SheetNotFoundError')) throw e;
+      }
     }
   }
   return counts;
