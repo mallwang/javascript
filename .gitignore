@@ -11,3 +11,4 @@ coverage/
 .vscode/
 .nx/
 tsconfig.tsbuildinfo
+next-env.d.ts
