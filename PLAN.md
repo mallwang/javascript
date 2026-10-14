@@ -189,6 +189,8 @@ The game was originally one browser game called "Schankimperium" spread over sev
 
 Finding: only the strom part works; wasser/pellet are stubs and the dashboard page is only a heading. The private XLSX and `.env` are not committed; the modernized app imports a user-supplied XLSX locally into SQLite.
 
+Predecessor: `gitlab-export/hausverbrauch` (Angular 7 + NestJS 6, strom and wasser charts from the same XLSX) was identified as the older version of this app. It is not a separate app: its sheet layout was verified and merged into the modernized importer (see `docs/procumer-dashboard.md`, "Predecessor"), then the export was deleted.
+
 - [x] Inspect
 - [x] Analyze (`docs/procumer-dashboard.md`)
 - [x] Clean up and commit legacy (XLSX, `.env`, lockfile, commitlint config, `.vscode` removed)

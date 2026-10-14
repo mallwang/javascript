@@ -69,6 +69,15 @@ Next.js 16 + TypeScript + SQLite, same versions as `unser-blog`; new dependency 
 Deviations from the legacy behavior:
 
 - Consumption is not rounded to integers (2 decimals) and the first reading has no consumption (legacy: 0). Years are derived from the date string, so there is no time zone effect.
-- Wasser reuses the strom logic (date + reading, unit assumed m³); the real sheet layout is unverified.
+- Wasser reuses the strom logic (date + reading, unit m³); verified against the `hausverbrauch` workbook (see "Predecessor").
 - Not ported: pellet refills and consumption (`Pellettankung`, `Pelletverbrauch` sheets; layout unknown). Charts are plain HTML bars; Chart.js was dropped.
-- Open for future development: check against the real workbook, pellet support, authentication if the app is ever exposed.
+- Open for future development: pellet support, authentication if the app is ever exposed.
+
+## Predecessor: hausverbrauch
+
+`gitlab-export/hausverbrauch` (backend + frontend, 122 files) was an earlier version of the same idea and was removed after its findings were merged here. Evidence: older stack (Angular 7, NestJS 6, TypeScript 3, xlsx 0.15, Chart.js 2.7), the same private `Verbrauchstabellen Haus.xlsx` via `FILE_PATH`, the same strom/wasser scope. It was a working small app, not a skeleton: `GET /strom` and `GET /wasser` summed the monthly consumption (column C) per year, the Angular app drew Chart.js bars.
+
+- Its workbook has 16 sheets; only `Zählerstände Strom` and `Zählerstände Wasser` were used. In both, column A = date, column B = meter reading, column C = consumption (strom: value, wasser: formula). Checked on the real file: C equals the difference to the previous reading in all but 5 (strom) and 2 (wasser) rows, so the derivation used here matches.
+- The modernized importer therefore accepts these two sheet names as a fallback after `Strombezug` / `Zaehler Wasser`. Importing the real workbook yields over 100 readings for both meters (checked locally, nothing committed).
+- Unused sheets for possible later work: `Zählerstände Heizung` (operating hours, litres), `Zählerstand Zisterne` (same layout as wasser plus price and savings), plus Öl, Whirlpool, Rasenroboter, Strompreissteigerung.
+- Dropped: the pre-built frontend and source maps in `backend-master/public/`, the commented-out cache decorator, generator spec stubs, and the `production.env`/`development.env`/`test.env` files (config with possible secrets). The workbook was copied to the user's home directory, outside the repo.
