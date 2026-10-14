@@ -1,0 +1,23 @@
+{
+  "name": "zisterne",
+  "version": "1.0.1",
+  "description": "zisternenprojekt",
+  "author": "Markus Allwang <allwang.markus@googlemail.com>",
+  "scripts": {
+    "start": "node app.js",
+    "start:dev:windows": "set NODE_ENV=development && nodemon app.js"
+  },
+  "main": "app.js",
+  "dependencies": {
+    "detect-port": "1.2.3",
+    "express": "4.16.4",
+    "pigpio": "0.6.4",
+    "socket-io": "1.0.0",
+    "socket.io": "2.1.1"
+  },
+  "private": true,
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "1.18.5"
+  }
+}

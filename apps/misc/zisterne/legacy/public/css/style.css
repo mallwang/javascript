@@ -1,0 +1,71 @@
+html, body {
+  height: 100%;
+  background-color: #f0f0f0;
+}
+
+.tk {
+  position: relative;
+  width: 250px;
+  height: 300px;
+  padding-top: 130px;
+  margin: 0 auto;
+  background: #3885d8;
+  border-radius: 100%/40px;
+  border-bottom: 3px solid #000;
+  text-align: center;
+  z-index: 1;
+  overflow: hidden;
+
+}
+
+.tk:after, .lq {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  z-index: -1;
+}
+
+.lq {
+  background: #c8d3ec;
+  height: 100%;
+  border-radius: 100%/40px;
+  border-bottom: 3px solid #000;
+}
+
+.tk:after {
+  height: 15%;
+  border: 1px solid #000;
+  border-radius: 100%;
+}
+
+.version {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.percentage-fill-level {
+  font-size: 16px;
+  font-weight: bold;
+}

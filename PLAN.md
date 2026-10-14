@@ -213,6 +213,19 @@ Finding: `gitlab-export/family-library-app-master` (Ionic 5 / Angular 9 tabs sta
 - [x] Document
 - [x] Commit
 
+### 15. misc/zisterne (81 files; Node.js + Express + socket.io on Raspberry Pi with HC-SR04 ultrasonic sensor via `pigpio`; source `gitlab-export/zisterne-master`)
+
+Notes: `PIGPIO/` contains the vendored pigpio C library with compiled binaries (`*.o`, `*.so`, executables) and `Sonstiges/` holds datasheets and a wiring diagram (assets, never delete). Two Python 2 scripts (`zisterne.py` CGI, `cronjob.py` cron logger) are alternative measurement paths. Hardware-bound: real sensor runs cannot be tested on the dev machine, use the GPIO mock. Check the legacy code for formula bugs (liters per cm uses `sqrt(d/2)` instead of `(d/2)^2`) and for a never-cleared timeout.
+
+- [x] Inspect
+- [x] Analyze (`docs/zisterne.md`)
+- [x] Clean up and commit legacy (vendored `PIGPIO/` with ARM binaries and `package-lock.json` removed; no secrets; `Sonstiges/` and all images kept)
+- [x] Decide stack (Node + TypeScript + Fastify + socket.io, Vite frontend without jQuery; `pigpio` optional behind a driver interface with simulator; `cronjob.py` ported as external HTTP-triggered logger)
+- [ ] Modernize
+- [ ] Test
+- [ ] Document
+- [ ] Commit
+
 ## Open decisions
 
 - [x] Baseline for "Shared conventions" (Node version in `.nvmrc`, dependency versions, ESLint/Prettier/TypeScript/Vitest config) defined by the first modernized app and written to `docs/conventions.md`

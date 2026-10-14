@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+  <title>Zisternenfüllstand</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- BROWSER TAB ICON -->
+  <link rel="icon" href="img/quelle_farbig.png">
+
+  <!-- STYLES -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- SCRIPTS -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./js/jquery-3.2.1.slim.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script>
+    $(function () {
+      // load library
+      const socket = io();
+      let lastFillLevel = "";
+      let lastFillLevelPercentage = 0;
+
+      // receive result
+      socket.on('measure', msg => {
+        console.log('msg:', msg);
+        printStatus("Aktueller Füllstand: " + msg.fillLevelInLtr + " Liter (" + msg.netFillLevelInCm
+            + "cm)");
+        lastFillLevelPercentage = msg.fillLevelInPercentage > 100 ? 100 : msg.fillLevelInPercentage;
+        setHeightOfWater(100 - lastFillLevelPercentage);
+        printFillLevel(`${lastFillLevelPercentage}%`);
+        setStartButtonDisabled(true);
+        setStopButtonDisabled(false);
+        lastFillLevel = msg.fillLevelInLtr + " Liter (" + msg.netFillLevelInCm + "cm)";
+      });
+
+      // client is connected
+      socket.on('client_connected', numberOfClients => {
+        createMessage("Ein neuer Benutzer ist verbunden.");
+      });
+
+      // client is disconnected
+      socket.on('client_disconnected', numberOfClients => {
+        createMessage("Ein Benutzer wurde getrennt.");
+      });
+
+      socket.on('client_started', () => {
+        createMessage("Eine Messung wurde gestartet.");
+        printStatus("Messung gestartet...");
+        setStartButtonDisabled(true);
+        setStopButtonDisabled(false);
+        setHeightOfWater(100);
+        printFillLevel('Messung gestartet...');
+      });
+
+      socket.on('client_stopped', () => {
+        createMessage("Eine Messung wurde gestoppt.");
+        const message = lastFillLevel.length > 0 ?
+            "Messung gestoppt. Letzter Füllstand: " + lastFillLevel :
+            "Messung gestoppt. Kein Füllstand ermittelt.";
+        printStatus(message);
+        setStartButtonDisabled(false);
+        setStopButtonDisabled(true);
+        setHeightOfWater(100 - lastFillLevelPercentage);
+        const fillLevel = lastFillLevelPercentage > 0
+            ? `Letzter Füllstand: <br>${lastFillLevelPercentage}%` : "Kein Füllstand ermittelt.";
+        printFillLevel(fillLevel);
+      });
+
+      // client reached measurement timeout
+      socket.on('client_timeout_reached', numberOfClients => {
+        createMessage("Messung vom Sensor gestoppt.");
+        const message = lastFillLevel.length > 0 ?
+            "Messung vom Sensor gestoppt. <br>Letzter Füllstand: " + lastFillLevel :
+            "Messung vom Sensor gestoppt. <br>Kein Füllstand ermittelt.";
+        printStatus(message);
+        setStartButtonDisabled(false);
+        setStopButtonDisabled(true);
+        setHeightOfWater(100 - lastFillLevelPercentage);
+        const fillLevel = lastFillLevelPercentage > 0
+            ? `Letzter Füllstand: <br>${lastFillLevelPercentage}%` : "Kein Füllstand ermittelt.";
+        printFillLevel(fillLevel);
+      });
+
+      // start measuring
+      $("#start").click(() => {
+        socket.emit("start");
+      });
+
+      // stop measuring
+      $('#stop').click(() => {
+        socket.emit("stop");
+      });
+
+      // clear messages
+      $('#clear').click(() => {
+        clearMessages();
+      });
+    });
+
+    function setStartButtonDisabled(isDisabled) {
+      $('#start').prop('disabled', isDisabled);
+    }
+
+    function setStopButtonDisabled(isDisabled) {
+      $('#stop').prop('disabled', isDisabled);
+    }
+
+    function printStatus(status) {
+      $('#result').html(status);
+    }
+
+    function printFillLevel(text) {
+      $('#percentageFillLevel').html(text);
+    }
+
+    function setHeightOfWater(height) {
+      $('.lq').css({height: height + '%'});
+    }
+
+    function createMessage(message) {
+      const currentTimeStamp = new Date().toLocaleString('de-DE', {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+      $('#messages > tbody:last-child').append(
+          `<tr><td>${currentTimeStamp}</td><td>${message}</td></tr>`);
+    }
+
+    function clearMessages() {
+      $('#messages > tbody').html("");
+    }
+  </script>
+</head>
+<body>
+
+<div class="container-fluid">
+  <!-- header and cistern -->
+  <div class="center">
+    <br>
+    <h4 id="result">Aktuell sind keine Messdaten vorhanden.</h4>
+    <div class="margin-top-50">
+      <div class="tk" data-amount="0">
+        <div id="percentageFillLevel" class="percentage-fill-level">
+          Aktuell sind keine Messdaten vorhanden.
+        </div>
+        <div class="lq"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- buttons -->
+  <div class="center margin-top-20">
+    <button id="start" type="button" class="btn btn-primary btn-sm">Start</button>
+    <button id="stop" type="button" class="btn btn-sm" disabled>Stop</button>
+  </div>
+
+  <br>
+
+  <!-- activitylog -->
+  <div class="hidden">
+    <div class="container">
+
+      <div class="row justify-content-md-center">
+        <div class="col-md-4 col-sm-6">
+          <h4>Aktivitätslog</h4>
+        </div>
+        <div class="col-md-2 col-sm-6">
+          <button id="clear" type="button" class="btn btn-sm float-right">Alle Einträge löschen
+          </button>
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-md-6">
+          <table id="messages" class="table table-striped table-sm">
+            <thead>
+            <tr>
+              <th scope="col">Uhrzeit</th>
+              <th scope="col">Nachricht</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h6 class="version">Version 1.0.1</h6>
+</div>
+
+</body>
+</html>

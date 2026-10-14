@@ -1,0 +1,13 @@
+{
+  "triggerPin": 17,
+  "echoPin": 27,
+  "diameterInCm": 199.7,
+  "emptyFillLevelInCm": 16.5,
+  "distanceBetweenUltrasonicAndMaxHeightInCm": 27,
+  "maxFillLevelInCm": 184.5,
+  "defaultPort": 80,
+  "triggerInterval": 200,
+  "averageMeasurements": 10,
+  "averageTemperatureCelsius": 15,
+  "measurementTimeoutSeconds": 30
+}
