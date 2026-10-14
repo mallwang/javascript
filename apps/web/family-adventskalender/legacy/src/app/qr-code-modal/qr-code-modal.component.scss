@@ -1,0 +1,28 @@
+ion-toolbar {
+  --ion-color-primary: #7c0102;
+}
+
+@font-face {
+  font-family: 'MountainsOfChristmas';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/assets/fonts/MountainsofChristmas.ttf');
+}
+
+ion-title {
+  font-family: 'MountainsOfChristmas';
+  font-size: larger;
+  font-weight: 600;
+}
+
+ion-content {
+  --height: auto;
+  --background: #7c0102;
+}
+
+img {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+}

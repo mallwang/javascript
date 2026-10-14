@@ -174,6 +174,17 @@ The game was originally one browser game called "Schankimperium" spread over sev
 - [x] Document
 - [x] Commit
 
+### 12. web/family-adventskalender (145 files, 60 MB, Ionic/Angular 10 PWA without backend; source `gitlab-export/family-adventskalender-master`)
+
+- [x] Inspect
+- [x] Analyze (`docs/family-adventskalender.md`)
+- [x] Clean up and commit legacy (GitLab templates, CI, Docker, commitlint config and lockfile removed)
+- [x] Decide stack (Vite + TypeScript, no framework; hand-written service worker)
+- [ ] Modernize
+- [ ] Test
+- [ ] Document
+- [ ] Commit
+
 ## Open decisions
 
 - [x] Baseline for "Shared conventions" (Node version in `.nvmrc`, dependency versions, ESLint/Prettier/TypeScript/Vitest config) defined by the first modernized app and written to `docs/conventions.md`

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> Allwang Family Adventskalender </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="displayQrCode()">
+        <ion-icon slot="icon-only" name="share-social"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refreshDate($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="snowflakes" aria-hidden="true">
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+  </div>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col tappable class="ion-text-center" size="4" *ngFor="let door of doors" (click)="openDoor(door)">
+        <div class="day" [ngClass]="{'closed': isLocked(door)}">
+          <div class="locked"></div>
+          <div class="locked-horizontal"></div>
+          <p>{{door + 1}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

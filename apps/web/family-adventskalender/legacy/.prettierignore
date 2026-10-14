@@ -1,0 +1,12 @@
+coverage/
+dist/
+docker/
+documentation/
+images/
+lib/
+node_modules/
+www/
+
+# Angular environment files
+environment.ts
+environment.prod.ts
