@@ -4,18 +4,18 @@ Source: `gitlab-export/unser-blog-main/` (64 files, ~800 KB, not yet moved to `a
 
 ## Inspect
 
-| Area | Files |
-|------|-------|
-| Entry | `index.php` (registration, login, "forgot password" form on one page) |
-| Auth | `reg_control.php`, `log_control.php`, `bestaetigung.php` (activation), `pw_gesendet.php` (reset), `logout.php`, `sessionpruefung.php` (guard) |
-| Blog | `home.php` (posts of subscribed users), `blog.php` (own posts), `new_blog.php`, `send_blog.php`, `delete_blog_confirm.php` |
-| Comments | `send_comment_blog.php`, `send_comment_home.php`, `delete_comment_confirm_blog.php`, `delete_comment_confirm_abbonnement.php` |
-| Users | `suche.php`, `usersuche.php`, `user.php` (public profile), `abbonieren.php`, `stop_abbonieren_confirm.php` |
-| Profile | `profil.php`, `persDaten_aendern.php`, `persDaten_neu.php`, `fotoHochladen.php`, `bildPruefen2.php`, `email_aendern.php`, `email_neu.php`, `pw_aendern.php`, `pw_neu.php` |
-| Layout | `header.php` (logged in), `header_outside.php`, `footer.php`, `footer_outside.php`, `impressum.php` |
-| DB | `connect.php` (**real credentials**), `functions.php` (query helpers, e-mail regex, password strength), `gruppe1.sql` (gzip-compressed dump despite the extension in the export, plain text and anonymized in `legacy/`) |
-| Client | `pruef.js` (form checks, delete confirms), `jQuery.js` (v1.8.2), `modern.css` (Metro UI CSS 0.1.1, MIT) |
-| Assets | `mail.ico`, `security.ico`, `images/` (4 pager arrows), `images/Userbilder/` (12 JPEGs: `Dummyuser.jpg` plus profile photos named `<user id>.jpg`) |
+| Area     | Files                                                                                                                                                                                                                    |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Entry    | `index.php` (registration, login, "forgot password" form on one page)                                                                                                                                                    |
+| Auth     | `reg_control.php`, `log_control.php`, `bestaetigung.php` (activation), `pw_gesendet.php` (reset), `logout.php`, `sessionpruefung.php` (guard)                                                                            |
+| Blog     | `home.php` (posts of subscribed users), `blog.php` (own posts), `new_blog.php`, `send_blog.php`, `delete_blog_confirm.php`                                                                                               |
+| Comments | `send_comment_blog.php`, `send_comment_home.php`, `delete_comment_confirm_blog.php`, `delete_comment_confirm_abbonnement.php`                                                                                            |
+| Users    | `suche.php`, `usersuche.php`, `user.php` (public profile), `abbonieren.php`, `stop_abbonieren_confirm.php`                                                                                                               |
+| Profile  | `profil.php`, `persDaten_aendern.php`, `persDaten_neu.php`, `fotoHochladen.php`, `bildPruefen2.php`, `email_aendern.php`, `email_neu.php`, `pw_aendern.php`, `pw_neu.php`                                                |
+| Layout   | `header.php` (logged in), `header_outside.php`, `footer.php`, `footer_outside.php`, `impressum.php`                                                                                                                      |
+| DB       | `connect.php` (**real credentials**), `functions.php` (query helpers, e-mail regex, password strength), `gruppe1.sql` (gzip-compressed dump despite the extension in the export, plain text and anonymized in `legacy/`) |
+| Client   | `pruef.js` (form checks, delete confirms), `jQuery.js` (v1.8.2), `modern.css` (Metro UI CSS 0.1.1, MIT)                                                                                                                  |
+| Assets   | `mail.ico`, `security.ico`, `images/` (4 pager arrows), `images/Userbilder/` (12 JPEGs: `Dummyuser.jpg` plus profile photos named `<user id>.jpg`)                                                                       |
 
 Missing: `images/menu_*.jpg`, `images/hintergrund.jpg` (only in commented-out header code and a reset-mail style), `delete_comment_confirm.php` (called from a dead `deleteMe()` in `header.php`).
 
@@ -74,7 +74,7 @@ Notes: `blogs.datum` has `ON UPDATE CURRENT_TIMESTAMP`, only inserts occur. `geb
 - **Activation bypass:** `reg_control.php` sets `$_SESSION['nickname']` right after registering, and the guard only checks that key, so an unconfirmed account is already logged in.
 - **No CSRF protection;** all state changes are GET links. No `session_regenerate_id`.
 - **Broken access control:** `stop_abbonieren_confirm.php` runs `DELETE FROM abbonnements WHERE abbonierter_id = ...` without `user_id`, so it deletes every subscriber's subscription to that author. `delete_comment_confirm_abbonnement.php` and others only check ownership via an unvalidated GET id; `send_comment_*` accepts any `blog_id`, even one the user cannot see. `usersuche.php`/`user.php` expose every user's e-mail address.
-- **Upload:** `bildPruefen2.php` moves the file to `images/Userbilder/<id>.jpg` *before* validating width/height, relies on `getimagesize` type 2, no re-encoding.
+- **Upload:** `bildPruefen2.php` moves the file to `images/Userbilder/<id>.jpg` _before_ validating width/height, relies on `getimagesize` type 2, no re-encoding.
 - **Info leaks:** `die(mysql_error())` messages, hard-coded production URLs in links, error messages revealing that an e-mail/nickname exists.
 - **Obsolete APIs:** `mysql_*` and `ereg_replace` (removed in PHP 7), `mail()` with hand-built headers (header injection via nickname/e-mail), custom HTML tags.
 
@@ -91,3 +91,19 @@ Notes: `blogs.datum` has `ON UPDATE CURRENT_TIMESTAMP`, only inserts occur. `geb
 - **Location:** `apps/web/unser-blog/legacy`.
 - **Legacy cleanup:** `.project`, `.buildpath`, `.settings/` removed (Eclipse metadata). `connect.php` secrets replaced by `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`. `gruppe1.sql` was decompressed (plain text now) and anonymized: e-mails are `userN@example.com`, all password hashes are the md5 of `password`, one real surname replaced. Blog texts and nicknames are unchanged demo content. Images, jQuery and Metro UI CSS are kept.
 - **Stack:** Next.js + TypeScript + SQLite (same as bierspiel). No mail delivery: activation and reset links are only logged to the server console; no SMTP configuration.
+
+## Modernization notes
+
+Next.js (App Router, server actions) + TypeScript + SQLite (`better-sqlite3`), same versions and layout as bierspiel. All legacy features are ported; deviations:
+
+- **No mail delivery.** Activation and password-reset links are written to the server console (using `APP_URL`). Changing the e-mail address or password sends no notification.
+- **Activation required.** Registration no longer logs in; login needs an activated account.
+- **Password reset by token** (one hour, stored hashed) instead of overwriting the password immediately. Passwords are scrypt hashes, at least 8 characters; a password change ends all sessions.
+- **Sessions** are random tokens (hashed in the DB) in an httpOnly cookie.
+- **Queries are parameterized**; all state changes are POST server actions (Next.js origin check as CSRF protection) and ownership is checked server-side. The unsubscribe bug (deleting all subscribers' subscriptions) is fixed.
+- **Text is stored as plain text** and escaped by React on output (no `htmlentities`/`<br>`); newlines are shown via CSS.
+- **Comments** can be deleted by their author and, additionally, by the post owner.
+- **Public profile** (`/users/<id>`, a page instead of a popup) does not show the e-mail address.
+- **Photos:** JPEG, at most 100x100 px and 100 KB, validated before saving to `PHOTO_DIR`. The 11 demo photos of the legacy app stay in `public/images/Userbilder` (with `Dummyuser.jpg` as fallback); uploads do not overwrite them.
+- **No seed data:** the demo content of `gruppe1.sql` is not imported; the database starts empty.
+- Dropped: jQuery, Metro UI CSS and the HTML table layout (plain CSS), custom confirm dialogs, the dead `deleteMe()` and unused helpers.

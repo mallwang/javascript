@@ -169,10 +169,10 @@ The game was originally one browser game called "Schankimperium" spread over sev
 - [x] Analyze (`docs/unser-blog.md`)
 - [x] Clean up and commit legacy (secrets replaced, `gruppe1.sql` anonymized, Eclipse junk removed)
 - [x] Decide stack (Next.js + TypeScript + SQLite, no mail delivery)
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ## Open decisions
 
