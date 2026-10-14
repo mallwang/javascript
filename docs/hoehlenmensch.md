@@ -105,3 +105,7 @@ Behavior changes and fixes:
 - Crafting is always 60 minutes, costs only food and water, and can only be started through the server action. `if ($dauer=30)` is gone (one yield table per duration).
 - Dropped: e-mail address, e-mail change, forgot-password mail, profile page (no mail service; login by nickname only), map prototypes, the unused Hauptseite hotspots without target (chest, character, tribe).
 - Seed data for small animals, plants, fish and mushrooms is invented (8/8/8/4 rows), because the legacy tables are not in the repo. English names replace the German ones.
+
+## Further ideas
+
+See `docs/hoehlenmensch-concept.md` for feature ideas from an unfinished Angular prototype.

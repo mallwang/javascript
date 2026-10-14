@@ -12,3 +12,4 @@ coverage/
 .nx/
 tsconfig.tsbuildinfo
 next-env.d.ts
+gitlab-export/
