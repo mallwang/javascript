@@ -134,12 +134,12 @@ Sizes are file counts of the legacy code.
 - [x] Document
 - [x] Commit
 
-### 9. web/bootstrap and web/iusemybrain (161 and 167 files, nearly identical)
+### 9. web/iusemybrain (`bootstrap/` was a near-identical older copy and was deleted)
 
-- [ ] Inspect
-- [ ] Diff `bootstrap` against `iusemybrain`; user decision how to merge (one app, one legacy)
-- [ ] Analyze (`docs/iusemybrain.md`)
-- [ ] Clean up and commit legacy
+- [x] Inspect
+- [x] Diff `bootstrap` against `iusemybrain`; user decision how to merge (one app, one legacy)
+- [x] Analyze (`docs/iusemybrain.md`)
+- [x] Clean up and commit legacy
 - [ ] Decide stack
 - [ ] Modernize
 - [ ] Test

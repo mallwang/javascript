@@ -8,7 +8,7 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | ------------- | ------------------------------------------------------------------------------ |
 | `apps/`       | All applications, each with `legacy/` (original state) and later `modernized/` |
 | `apps/games/` | Browser games: bierspiel (v1–v6), hoehlenmensch                                |
-| `apps/web/`   | Web apps: bootstrap, iusemybrain, manageyourteam, verwaltungstool, greenscreen |
+| `apps/web/`   | Web apps: iusemybrain, manageyourteam, verwaltungstool, greenscreen |
 | `apps/sites/` | Static sites: hallindi, kia                                                    |
 | `apps/misc/`  | Small projects: email-check, richkidzofupo                                     |
 | `docs/`       | Analyses, migration plans and status logs                                      |
@@ -22,8 +22,7 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | ------------------- | ------------------------------------ | ---------- |
 | games/bierspiel     | v1–v6                                | open       |
 | games/hoehlenmensch | yes                                  | done       |
-| web/bootstrap       | yes (similar to iusemybrain)         | open       |
-| web/iusemybrain     | yes (similar to bootstrap)           | open       |
+| web/iusemybrain     | yes (`bootstrap` was identical, deleted) | open       |
 | web/manageyourteam  | yes (`legacy-neu` was identical)     | done       |
 | web/verwaltungstool | yes                                  | done       |
 | web/greenscreen     | yes                                  | done       |
