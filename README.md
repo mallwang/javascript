@@ -22,7 +22,7 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | ------------------- | ------------------------------------ | ---------- |
 | games/bierspiel     | v1–v6                                | open       |
 | games/hoehlenmensch | yes                                  | done       |
-| web/iusemybrain     | yes (`bootstrap` was identical, deleted) | open       |
+| web/iusemybrain     | yes (`bootstrap` was identical, deleted) | done       |
 | web/manageyourteam  | yes (`legacy-neu` was identical)     | done       |
 | web/verwaltungstool | yes                                  | done       |
 | web/greenscreen     | yes                                  | done       |

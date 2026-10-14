@@ -140,11 +140,11 @@ Sizes are file counts of the legacy code.
 - [x] Diff `bootstrap` against `iusemybrain`; user decision how to merge (one app, one legacy)
 - [x] Analyze (`docs/iusemybrain.md`)
 - [x] Clean up and commit legacy
-- [ ] Decide stack
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Decide stack
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ### 10. games/bierspiel (v1 to v6, 923 files, 39 MB)
 

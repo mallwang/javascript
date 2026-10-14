@@ -76,3 +76,20 @@ PHP `mail()` for activation, welcome, password, webmaster notifications and supp
 
 - Placeholders: `ADMIN_EMAIL` (`header.php`), `MAIL_WEBMASTER_ADDRESS` and `MAIL_FROM_ADDRESS` (`neueintrag.php`), `GA_TRACKING_ID` (`analyticstracking.php`); the visitor IP in `counter.txt` is replaced by `0.0.0.0`.
 - Deleted dead files (user decision): `html1.php`, `ajax.php`, `header2.php`, `game.php`, `newsletter.php`, `js/jquery-1.9.0.js`, `css/docs.css`. No images or other assets were removed.
+
+## Stack decision
+
+Next.js 16 (App Router, server actions) + TypeScript + SQLite (`better-sqlite3`), as for hoehlenmensch and manageyourteam. User decision.
+
+## Modernized
+
+`apps/web/iusemybrain/modernized/`. Ported: places directory with filters, submission (anonymous or logged in) and admin approval, accounts (nickname or e-mail login), library search, support form, memory game (client component), download page, imprint, XML places API `/api/places`. All images and both APKs are kept in `public/`.
+
+Fixes versus legacy:
+
+- All SQL uses prepared statements; the `tabelle` parameter is replaced by a fixed category list (`sight`, `park`, `museum`).
+- scrypt password hashes and hashed, expiring DB sessions replace md5 and the unsalted session.
+- Approval by guessable mail key is replaced by an admin page; the admin is seeded from `ADMIN_EMAIL` and `ADMIN_PASSWORD` instead of a hardcoded address in the menu code (no mail verification, so "first registered" would be unsafe).
+- XML and HTML output is escaped; the support form is stored in `support` instead of mailed.
+
+Not ported: mail (activation, password reset, notifications; accounts are active immediately), tutorials, donate pages, visitor counter and statistics, newsletter, profile editing and account deletion, Google Analytics. The library tables have no data and no editor because the legacy database was not part of the repo. The memory game uses 10 pairs (legacy used 20 cards as well) with a deterministic Fisher-Yates shuffle instead of the legacy retry loop.
