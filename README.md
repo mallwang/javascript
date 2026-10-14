@@ -7,8 +7,8 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | Path          | Content                                                                        |
 | ------------- | ------------------------------------------------------------------------------ |
 | `apps/`       | All applications, each with `legacy/` (original state) and later `modernized/` |
-| `apps/games/` | Browser games: bierspiel (v1–v6), hoehlenmensch                                |
-| `apps/web/`   | Web apps: iusemybrain, manageyourteam, verwaltungstool, greenscreen |
+| `apps/games/` | Browser games: bierspiel (v5, v6), hoehlenmensch                               |
+| `apps/web/`   | Web apps: iusemybrain, manageyourteam, verwaltungstool, greenscreen            |
 | `apps/sites/` | Static sites: hallindi, kia                                                    |
 | `apps/misc/`  | Small projects: email-check, richkidzofupo                                     |
 | `docs/`       | Analyses, migration plans and status logs                                      |
@@ -18,15 +18,15 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 
 ## Status
 
-| App                 | Legacy                               | Modernized |
-| ------------------- | ------------------------------------ | ---------- |
-| games/bierspiel     | v1–v6                                | open       |
-| games/hoehlenmensch | yes                                  | done       |
+| App                 | Legacy                                   | Modernized |
+| ------------------- | ---------------------------------------- | ---------- |
+| games/bierspiel     | v5, v6                                   | done       |
+| games/hoehlenmensch | yes                                      | done       |
 | web/iusemybrain     | yes (`bootstrap` was identical, deleted) | done       |
-| web/manageyourteam  | yes (`legacy-neu` was identical)     | done       |
-| web/verwaltungstool | yes                                  | done       |
-| web/greenscreen     | yes                                  | done       |
-| sites/hallindi      | yes                                  | done       |
-| sites/kia           | yes                                  | done       |
-| misc/email-check    | yes                                  | done       |
-| misc/richkidzofupo  | yes                                  | done       |
+| web/manageyourteam  | yes (`legacy-neu` was identical)         | done       |
+| web/verwaltungstool | yes                                      | done       |
+| web/greenscreen     | yes                                      | done       |
+| sites/hallindi      | yes                                      | done       |
+| sites/kia           | yes                                      | done       |
+| misc/email-check    | yes                                      | done       |
+| misc/richkidzofupo  | yes                                      | done       |

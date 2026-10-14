@@ -157,11 +157,11 @@ The game was originally one browser game called "Schankimperium" spread over sev
 
 - [x] Analyze (`docs/bierspiel.md`; evolution v1 to v6, game rules, DB model)
 - [x] Clean up and commit legacy (per version)
-- [ ] Decide stack
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Decide stack (Next.js + TypeScript + SQLite; port 1:1, title "Schankimperium"; a later rewrite may change the stack)
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ## Open decisions
 
