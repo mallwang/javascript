@@ -167,4 +167,4 @@ The game was originally one browser game called "Schankimperium" spread over sev
 
 - [x] Baseline for "Shared conventions" (Node version in `.nvmrc`, dependency versions, ESLint/Prettier/TypeScript/Vitest config) defined by the first modernized app and written to `docs/conventions.md`
 - [x] Monorepo: npm workspaces + Nx (decided and set up after the first three apps)
-- [ ] Shared components between apps (e.g. auth, mailer, hallindi/kia template)
+- [x] Shared components between apps (e.g. auth, mailer, hallindi/kia template): **rejected**. Every app stays a self-contained application that can be copied out of the monorepo as a folder. Some apps (e.g. both games) are meant to be extracted into their own repos later, so apps must not import code from each other or from shared packages.
