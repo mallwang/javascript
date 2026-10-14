@@ -1,0 +1,26 @@
+<div class="container">
+  <h2 class="h2-responsive font-weight-bold text-center my-4">{{ title }}</h2>
+
+  <h4 class="h4-responsive text-center my-3" *ngIf="stromMeterReadings">
+    {{ stromMeterReadings[stromMeterReadings.length - 1].date | date: 'yyyy' }} -
+    {{ stromMeterReadings[0].date | date: 'yyyy' }}
+  </h4>
+  <div class="row" *ngIf="stromMeterReadings">
+    <table mdbTable striped="true">
+      <thead>
+        <tr>
+          <th *ngFor="let head of headElements" scope="col">{{ head }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let meterReading of stromMeterReadings">
+          <th scope="row">{{ meterReading.date | date: 'MMMM yyyy' }}</th>
+          <td>
+            {{ meterReading.meterReading | number: '1.0-0' }}
+            {{ meterReading.meterReading ? unit : '' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

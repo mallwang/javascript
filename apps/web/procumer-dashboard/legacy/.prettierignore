@@ -1,0 +1,12 @@
+# Add files here to ignore them from prettier formatting
+
+/coverage
+/dist
+documentation/
+lib/
+node_modules/
+www/
+
+# Angular environment files
+environment.ts
+environment.prod.ts

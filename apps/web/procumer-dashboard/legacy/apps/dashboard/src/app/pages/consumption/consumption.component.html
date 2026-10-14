@@ -1,0 +1,51 @@
+<div class="mat-elevation-z8" style="margin: 20px">
+  <mat-tab-group>
+    <mat-tab label="Jahresverbrauch">
+      <table mat-table [dataSource]="dataSourceConsumptionYears" matSort class="mat-elevation-z8">
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Year Column -->
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Kalenderjahr</th>
+          <td mat-cell *matCellDef="let element">{{ element.year }}</td>
+        </ng-container>
+
+        <!-- Consumption Column -->
+        <ng-container matColumnDef="consumption">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Verbrauch</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.consumption | number: '1.0-0' }} {{ stromConsumptionYears.unit }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsConsumptionYears"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsConsumptionYears"></tr>
+      </table>
+    </mat-tab>
+
+    <mat-tab label="Monatsverbrauch">
+      <table mat-table [dataSource]="dataSourceConsumptionMonths">
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Year Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Datum</th>
+          <td mat-cell *matCellDef="let element">{{ element.date | date: 'MMMM yyyy' }}</td>
+        </ng-container>
+
+        <!-- Consumption Column -->
+        <ng-container matColumnDef="consumption">
+          <th mat-header-cell *matHeaderCellDef>Verbrauch</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.consumption | number: '1.0-0' }} {{ stromConsumptionMonths.unit }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsConsumptionMonths"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsConsumptionMonths"></tr>
+      </table>
+    </mat-tab>
+  </mat-tab-group>
+</div>

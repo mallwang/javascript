@@ -1,0 +1,36 @@
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark orange sticky-top">
+  <!-- Brand -->
+  <mdb-navbar-brand
+    ><a class="navbar-brand" [href]="primaryLinks[0].path">{{ title }}</a></mdb-navbar-brand
+  >
+
+  <!-- Links -->
+  <links>
+    <ul class="navbar-nav mr-auto">
+      <!-- Primary navigation links -->
+      <li class="nav-item" routerLinkActive="active" *ngFor="let link of primaryLinks">
+        <a class="nav-link waves-light" mdbWavesEffect [routerLink]="link.path">{{ link.title }}</a>
+      </li>
+
+      <!-- Dropdown links -->
+      <li class="nav-item dropdown" dropdown routerLinkActive="active">
+        <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          Zählerstände<span class="caret"></span
+        ></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a
+            class="dropdown-item waves-light"
+            mdbWavesEffect
+            *ngFor="let x of dropdownLinks"
+            routerLink="{{ x.path }}"
+            routerLinkActive="active"
+            >{{ x.title }}</a
+          >
+        </div>
+      </li>
+    </ul>
+  </links>
+</mdb-navbar>
+
+<!-- Content -->
+<router-outlet></router-outlet>

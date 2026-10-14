@@ -185,6 +185,19 @@ The game was originally one browser game called "Schankimperium" spread over sev
 - [x] Document
 - [x] Commit
 
+### 13. web/procumer-dashboard (130 files, Nx with Angular 10 frontend and NestJS API reading a private XLSX; source `gitlab-export/procumer-dashboard-master`)
+
+Finding: only the strom part works; wasser/pellet are stubs and the dashboard page is only a heading. The private XLSX and `.env` are not committed; the modernized app imports a user-supplied XLSX locally into SQLite.
+
+- [x] Inspect
+- [x] Analyze (`docs/procumer-dashboard.md`)
+- [x] Clean up and commit legacy (XLSX, `.env`, lockfile, commitlint config, `.vscode` removed)
+- [x] Decide stack (Next.js + TypeScript + SQLite; XLSX supplied locally by the user, never committed)
+- [ ] Modernize
+- [ ] Test
+- [ ] Document
+- [ ] Commit
+
 ## Open decisions
 
 - [x] Baseline for "Shared conventions" (Node version in `.nvmrc`, dependency versions, ESLint/Prettier/TypeScript/Vitest config) defined by the first modernized app and written to `docs/conventions.md`
