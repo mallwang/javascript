@@ -193,10 +193,10 @@ Finding: only the strom part works; wasser/pellet are stubs and the dashboard pa
 - [x] Analyze (`docs/procumer-dashboard.md`)
 - [x] Clean up and commit legacy (XLSX, `.env`, lockfile, commitlint config, `.vscode` removed)
 - [x] Decide stack (Next.js + TypeScript + SQLite; XLSX supplied locally by the user, never committed)
-- [ ] Modernize
-- [ ] Test
-- [ ] Document
-- [ ] Commit
+- [x] Modernize
+- [x] Test
+- [x] Document
+- [x] Commit
 
 ## Open decisions
 

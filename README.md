@@ -28,7 +28,7 @@ Collection of earlier web applications (mostly PHP/JS), being modernized step by
 | web/greenscreen            | yes                                      | done       |
 | web/unser-blog             | yes                                      | done       |
 | web/family-adventskalender | yes (CI/Docker/GitLab files removed)     | done       |
-| web/procumer-dashboard     | yes (private XLSX and `.env` removed)    | pending    |
+| web/procumer-dashboard     | yes (private XLSX and `.env` removed)    | done       |
 | sites/hallindi             | yes                                      | done       |
 | sites/kia                  | yes                                      | done       |
 | misc/email-check           | yes                                      | done       |

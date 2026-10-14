@@ -1,0 +1,26 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 48rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+a {
+  color: #1a6b3c;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+th,
+td {
+  text-align: left;
+  padding: 0.25rem 0.75rem;
+  border-bottom: 1px solid #ddd;
+}
+.error {
+  color: #b00020;
+}
+.ok {
+  color: #1a6b3c;
+}

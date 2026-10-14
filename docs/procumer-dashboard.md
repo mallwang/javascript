@@ -57,3 +57,18 @@ Next.js + TypeScript + SQLite (same as `unser-blog`, `bierspiel`). Next.js route
 
 - The private XLSX is **not part of the repo**. The user places it locally (path from `.env`, ignored by git) and an import step (script and/or upload) loads the readings into SQLite.
 - Scope: strom fully ported; wasser as a second meter with the same logic (same shape: date + reading); pellet and charts only if the layout of the sheets is provided. Dashboard page gets a real overview (latest reading, yearly consumption chart).
+
+## Modernized (`apps/web/procumer-dashboard/modernized/`)
+
+Next.js 16 + TypeScript + SQLite, same versions as `unser-blog`; new dependency `read-excel-file` 9.3.12 (replaces the vulnerable `xlsx`).
+
+- `/` overview per meter: latest reading and yearly consumption bars; import form. `/meter/[meter]` (`strom`, `wasser`): readings table with consumption since the previous reading.
+- The workbook is uploaded through a server action, parsed in memory and not stored. Readings go to table `meter_reading(meter, date, reading)`; re-import replaces a meter's readings. `data/` and `.env` are git-ignored.
+- NestJS, Angular, Nx workspace, Swagger, CSRF/helmet/rate-limit, Cypress, TSLint and the REST API are dropped: the app is a local single-user tool without auth.
+
+Deviations from the legacy behavior:
+
+- Consumption is not rounded to integers (2 decimals) and the first reading has no consumption (legacy: 0). Years are derived from the date string, so there is no time zone effect.
+- Wasser reuses the strom logic (date + reading, unit assumed m³); the real sheet layout is unverified.
+- Not ported: pellet refills and consumption (`Pellettankung`, `Pelletverbrauch` sheets; layout unknown). Charts are plain HTML bars; Chart.js was dropped.
+- Open for future development: check against the real workbook, pellet support, authentication if the app is ever exposed.
